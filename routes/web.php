@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Modulo\Auth\AuthController;
 use App\Http\Controllers\Modulo\Configuraciones\ClienteController;
+use App\Http\Controllers\Modulo\Configuraciones\HabitacionController;
 use App\Http\Controllers\Modulo\Configuraciones\HotelController;
 use App\Http\Controllers\Modulo\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('editar/{id}', [ClienteController::class, 'editar'])->name('editar');
         Route::put('eliminar/{id}', [ClienteController::class, 'eliminar'])->name('eliminar');
         // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+    });
+
+    Route::name('configuraciones.')->prefix('configuraciones')->group(function () {
+        Route::name('habitacion.')->prefix('habitacion')->group(function () {
+            Route::get('lista', [HabitacionController::class, 'lista'])->name('lista');
+            Route::post('listar', [HabitacionController::class, 'listar'])->name('listar');
+            Route::post('guardar', [HabitacionController::class, 'guardar'])->name('guardar');
+            Route::get('editar/{id}', [HabitacionController::class, 'editar'])->name('editar');
+            Route::put('eliminar/{id}', [HabitacionController::class, 'eliminar'])->name('eliminar');
+            // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+        });
     });
 
     Route::name('administrador.')->prefix('administrador')->group(function () {

@@ -21,6 +21,7 @@ class AuthController extends Controller
         ];
         if (Auth::attempt($credenciales)) {
             // return Auth::user();
+            $this->sesionHotel(Auth::user()->id);
             return redirect()->intended('home');
         }
         return redirect('login')->with('status','Credenciales incorrectas');
@@ -28,12 +29,16 @@ class AuthController extends Controller
         // return response()->json(["data"=>$request->all()],200);
     }
     public function logout(){
-        $user = User::find(Auth::user()->id); // Obtén el usuario autenticado
-        $user->hotel_sesion = 0; // Asigna el nuevo valor al campo
-        $user->save();
-        Auth::user()->hotel_sesion = 0;
+        $this->sesionHotel(Auth::user()->id);
         Session::flush();
         Auth::logout();
         return redirect()->intended('login');
+    }
+    // el proceso limpia el hotel que se selecciono a nivel de base de datos y a nivel de sesion
+    public function sesionHotel($id) {
+        $user = User::find($id); // Obtén el usuario autenticado
+        $user->hotel_sesion = 0; // Asigna el nuevo valor al campo
+        $user->save();
+        Auth::user()->hotel_sesion = 0;
     }
 }

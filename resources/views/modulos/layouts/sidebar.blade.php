@@ -67,14 +67,10 @@
                     </ul>
                 </li>
 
-
-                <li class="sub-category">
-                    <h3>ADMINISTRADOR</h3>
-                </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fe fe-slack"></i><span
-                            class="side-menu__label">Configuraciones</span><i
+                            class="side-menu__label">Configuracion</span><i
                             class="angle fe fe-chevron-right"></i>
                     </a>
                     <ul class="slide-menu">
@@ -93,14 +89,22 @@
                                     <div class="tab-pane active" id="side1">
                                         <ul class="sidemenu-list">
                                             <li class="side-menu-label1"><a href="javascript:void(0)">Configuraciones</a></li>
-
-                                            <li><a href="#" class="slide-item"> Hoteles</a></li>
+                                            <li><a href="{{ route('configuraciones.habitacion.lista') }}" class="slide-item"> Habitaciones</a></li>
+                                            <li><a href="#" class="slide-item"> Categorias</a></li>
+                                            <li><a href="#" class="slide-item"> Niveles</a></li>
+                                            <li><a href="#" class="slide-item"> Informacion de Hotel</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
+                </li>
+
+
+
+                <li class="sub-category">
+                    <h3>ADMINISTRADOR</h3>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
