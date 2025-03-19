@@ -62,7 +62,17 @@ class HabitacionController extends Controller
         $data->save();
         return response()->json([
             "status"=>true,
-            "data"=> $request->all()
+            "data"=> $request->all(),
+            "titulo"=> "Éxito",
+            "texto"=> "Se registro con éxito",
+            "titpo"=> "success",
+        ],200);
+    }
+    public function editar($id) {
+        $data = Habitacion::find($id);
+        return response()->json([
+            "status"=>"success",
+            "data"=> $data
         ],200);
     }
 }

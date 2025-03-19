@@ -14,6 +14,16 @@ class HabitacionModel {
             data: data
         });
     }
+    editar = (id) =>{
+        return $.ajax({
+            url: route('configuraciones.habitacion.editar',{id:id}),
+            type: 'GET',
+            dataType: "JSON",
+            // processData: false,
+            // contentType: false,
+            data: { _token: this.token }
+        });
+    }
     eliminar = (id) =>{
         return $.ajax({
             url: route('administrador.configuraciones.clientes.eliminar',{id:id}),

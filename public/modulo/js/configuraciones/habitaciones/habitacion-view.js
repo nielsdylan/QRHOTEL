@@ -31,6 +31,10 @@ class HabitacionView {
                         $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nueva Habitación');
                         // $(selector).attr(attributeName);
                         $('[name="id"]').val(0);
+
+                        $('#form-registro').find('[name="nivel_id"]').val('').trigger('change.select2');
+                        $('#form-registro').find('[name="tarifa_id"]').val('').trigger('change.select2');
+                        $('#form-registro').find('[name="categoria_id"]').val('').trigger('change.select2');
                     },
                     init: function(api, node, config) {
 
@@ -152,19 +156,22 @@ class HabitacionView {
         });
         $('#tabla-data').on('click', 'a.editar',(e) => {
             e.preventDefault();
-            let id = $(e.currentTarget).attr('data-persona');
+            let id = $(e.currentTarget).attr('data-id');
+            $('#modal-registro').modal('show');
             this.model.editar(id).then((respuesta) => {
                 if(respuesta.status=="success"){
 
-                    $('#modal-cliente').modal('show');
-                    $("#form-cliente")[0].reset();
-                    $("#form-cliente").find('h5.modal-title').text('Esitar Cliente');
 
-                    $('[name="persona_id"]').val(respuesta.persona.id);
-                    $('#form-cliente').find('[name="dni"]').val(respuesta.persona.dni)
-                    $('#form-cliente').find('[name="apellidos"]').val(respuesta.persona.apellidos)
-                    $('#form-cliente').find('[name="nombres"]').val(respuesta.persona.nombres)
-                    $('#form-cliente').find('[name="telefono"]').val(respuesta.persona.telefono)
+                    $("#form-registro")[0].reset();
+                    $("#modal-registro").find('h5.modal-title').text('Editar Habitación');
+
+                    $('[name="id"]').val(respuesta.data.id);
+                    $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
+                    $('#form-registro').find('[name="precio"]').val(respuesta.data.precio)
+
+                    $('#form-registro').find('[name="nivel_id"]').val(respuesta.data.nivel_id).trigger('change.select2');
+                    $('#form-registro').find('[name="tarifa_id"]').val(respuesta.data.tarifa_id).trigger('change.select2');
+                    $('#form-registro').find('[name="categoria_id"]').val(respuesta.data.categoria_id).trigger('change.select2');
 
                 }
 

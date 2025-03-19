@@ -42,16 +42,4 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::name('administrador.')->prefix('administrador')->group(function () {
-        // Route::name('configuraciones.')->prefix('configuraciones')->group(function () {
-        //     Route::name('clientes.')->prefix('clientes')->group(function () {
-        //         Route::get('lista', [ClienteController::class, 'lista'])->name('lista');
-        //         Route::post('listar', [ClienteController::class, 'listar'])->name('listar');
-        //         Route::post('guardar', [ClienteController::class, 'guardar'])->name('guardar');
-        //         Route::get('editar/{id}', [ClienteController::class, 'editar'])->name('editar');
-        //         Route::put('eliminar/{id}', [ClienteController::class, 'eliminar'])->name('eliminar');
-        //         // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
-        //     });
-        // });
-    });
 });
