@@ -135,15 +135,17 @@ class HabitacionView {
                     console.log(respuesta);
                     tabla.ajax.reload(null, false);
                     swal({
-                        title: "Éxito",
-                        text: "Se registro con éxito",
-                        type: "success"
+                        title: respuesta.titulo,
+                        text:respuesta.texto,
+                        type: respuesta.titpo
                     });
+                    // this.listar.$tabla
+                    $('#tabla-data').DataTable().ajax.reload(null, false);
                 }
                 button.removeAttr('disabled')
                 button.find('i').removeClass('fa-spinner fa-spin')
                 button.find('i').addClass('fa-save');
-                // $('#modal-registro').modal('hide');
+                $('#modal-registro').modal('hide');
             }).always(() => {
             }).fail(() => {
                 tabla.ajax.reload(null, false);
