@@ -4,32 +4,20 @@ namespace App\Http\Controllers\Modulo\Configuraciones;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
-use App\Models\Habitacion;
-use App\Models\Nivel;
-use App\Models\Tarifa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
-class HabitacionController extends Controller
+class CategoriaController extends Controller
 {
     //
     public function lista(){
-        $niveles = Nivel::where('hotel_id', Auth::user()->hotel_sesion)->get();
-        $tarifa = Tarifa::where('hotel_id', Auth::user()->hotel_sesion)->get();
-        $categoria = Categoria::where('hotel_id', Auth::user()->hotel_sesion)->get();
-        return view('modulos.configuraciones.habitaciones.lista', get_defined_vars());
+        return view('modulos.configuraciones.categorias.lista', get_defined_vars());
     }
     public function listar(){
-        $data     = Habitacion::where('hotel_id', Auth::user()->hotel_sesion)->get();
+        $data     = Categoria::where('hotel_id', Auth::user()->hotel_sesion)->get();
         //$tipo_cambio = TipoCambio::orderBy('name', 'desc')->first();
         return DataTables::of($data)
-        ->addColumn('categoria', function ($data) {
-            return $data->categoria->nombre;
-        })
-        ->addColumn('nivel', function ($data) {
-            return $data->nivel->nombre;
-        })
         ->addColumn('estado_color', function ($data) {
             $color = ($data->estado == 1 ? 'success' : 'danger');
             $texto = ($data->estado == 1 ? 'Activo' : 'Inactivo');
@@ -50,14 +38,10 @@ class HabitacionController extends Controller
         })->rawColumns(['accion','estado_color'])->make(true);
     }
     public function guardar(Request $request){
-        $data = Habitacion::firstOrNew(
+        $data = Categoria::firstOrNew(
             ['id' => $request->id],
         );
         $data->nombre = $request->nombre;
-        $data->precio = $request->precio;
-        $data->nivel_id = $request->nivel_id;
-        $data->tarifa_id = $request->tarifa_id;
-        $data->categoria_id = $request->categoria_id;
         $data->hotel_id = Auth::user()->hotel_sesion;
         $data->save();
         return response()->json([
@@ -69,14 +53,14 @@ class HabitacionController extends Controller
         ],200);
     }
     public function editar($id) {
-        $data = Habitacion::find($id);
+        $data = Categoria::find($id);
         return response()->json([
             "status"=>"success",
             "data"=> $data
         ],200);
     }
     public function eliminar($id) {
-        $data = Habitacion::find($id);
+        $data = Categoria::find($id);
         $data->estado = 0;
         $data->delete();
         $data->save();

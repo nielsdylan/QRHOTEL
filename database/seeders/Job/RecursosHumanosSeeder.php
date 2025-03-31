@@ -22,5 +22,16 @@ class RecursosHumanosSeeder extends Seeder
         $data->hotel_id = 2;
         $data->usuario_id = 1;
         $data->save();
+
+
+        $data = new RecursoHumano();
+        $data->hotel_id = 1;
+        $data->usuario_id = 2;
+        $data->save();
+
+        $data = new RecursoHumano();
+        $data->hotel_id = 2;
+        $data->usuario_id = 3;
+        $data->save();
     }
 }

@@ -32,12 +32,12 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Gestion de Niveles</h1>
+                <h1 class="page-title">Gestion de Categorias</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Modulos</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Configuraciones</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Niveles</li>
+                        <li class="breadcrumb-item active" aria-current="page">Categorias</li>
                     </ol>
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de Niveles</h3>
+                            <h3 class="card-title">Lista de Categorias</h3>
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-md-center">
@@ -136,11 +136,11 @@
 <script src="{{ asset('template/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('template/js/table-data.js') }}"></script>
 
-<script src="{{ asset('modulo/js/configuraciones/niveles/nivel-model.js') }}"></script>
-<script src="{{ asset('modulo/js/configuraciones/niveles/nivel-view.js') }}"></script>
+<script src="{{ asset('modulo/js/configuraciones/categorias/categoria-model.js') }}"></script>
+<script src="{{ asset('modulo/js/configuraciones/categorias/categoria-view.js') }}"></script>
 
 <script>
-    const view = new NivelView(new NivelModel(token));
+    const view = new CategoriaView(new CategoriaModel(token));
     view.listar();
     view.eventos();
 </script>

@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Modulo\Auth\AuthController;
-use App\Http\Controllers\Modulo\Configuraciones\ClienteController;
+use App\Http\Controllers\Modulo\ClientesController;
+use App\Http\Controllers\Modulo\Configuraciones\CategoriaController;
 use App\Http\Controllers\Modulo\Configuraciones\HabitacionController;
 use App\Http\Controllers\Modulo\Configuraciones\HotelController;
+use App\Http\Controllers\Modulo\Configuraciones\NivelController;
+use App\Http\Controllers\Modulo\Configuraciones\UsuarioController;
 use App\Http\Controllers\Modulo\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +26,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('seleccionar-hotel', [HotelController::class, 'seleccionarHotel'])->name('seleccionar-hotel');
 
     Route::name('clientes.')->prefix('clientes')->group(function () {
-        Route::get('lista', [ClienteController::class, 'lista'])->name('lista');
-        Route::post('listar', [ClienteController::class, 'listar'])->name('listar');
-        Route::post('guardar', [ClienteController::class, 'guardar'])->name('guardar');
-        Route::get('editar/{id}', [ClienteController::class, 'editar'])->name('editar');
-        Route::put('eliminar/{id}', [ClienteController::class, 'eliminar'])->name('eliminar');
+        Route::get('lista', [ClientesController::class, 'lista'])->name('lista');
+        Route::post('listar', [ClientesController::class, 'listar'])->name('listar');
+        Route::post('guardar', [ClientesController::class, 'guardar'])->name('guardar');
+        Route::get('editar/{id}', [ClientesController::class, 'editar'])->name('editar');
+        Route::put('eliminar/{id}', [ClientesController::class, 'eliminar'])->name('eliminar');
         // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
     });
 
@@ -38,6 +41,30 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [HabitacionController::class, 'guardar'])->name('guardar');
             Route::get('editar/{id}', [HabitacionController::class, 'editar'])->name('editar');
             Route::put('eliminar/{id}', [HabitacionController::class, 'eliminar'])->name('eliminar');
+            // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+        });
+        Route::name('niveles.')->prefix('niveles')->group(function () {
+            Route::get('lista', [NivelController::class, 'lista'])->name('lista');
+            Route::post('listar', [NivelController::class, 'listar'])->name('listar');
+            Route::post('guardar', [NivelController::class, 'guardar'])->name('guardar');
+            Route::get('editar/{id}', [NivelController::class, 'editar'])->name('editar');
+            Route::put('eliminar/{id}', [NivelController::class, 'eliminar'])->name('eliminar');
+            // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+        });
+        Route::name('categorias.')->prefix('categorias')->group(function () {
+            Route::get('lista', [CategoriaController::class, 'lista'])->name('lista');
+            Route::post('listar', [CategoriaController::class, 'listar'])->name('listar');
+            Route::post('guardar', [CategoriaController::class, 'guardar'])->name('guardar');
+            Route::get('editar/{id}', [CategoriaController::class, 'editar'])->name('editar');
+            Route::put('eliminar/{id}', [CategoriaController::class, 'eliminar'])->name('eliminar');
+            // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+        });
+        Route::name('usuarios.')->prefix('usuarios')->group(function () {
+            Route::get('lista', [UsuarioController::class, 'lista'])->name('lista');
+            Route::post('listar', [UsuarioController::class, 'listar'])->name('listar');
+            Route::post('guardar', [UsuarioController::class, 'guardar'])->name('guardar');
+            Route::get('editar/{id}', [UsuarioController::class, 'editar'])->name('editar');
+            Route::put('eliminar/{id}', [UsuarioController::class, 'eliminar'])->name('eliminar');
             // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
         });
     });

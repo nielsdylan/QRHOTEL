@@ -26,13 +26,12 @@ class NivelView {
                     },
                     action: () => {
                         // vistaCrear();
-                        $('#modal-cliente').modal('show');
-                        $("#form-cliente")[0].reset();
-                        $('#modal-cliente').find('.modal-header').find('h6.modal-title').text('Nuevo Cliente');
+                        $('#modal-registro').modal('show');
+                        $("#form-registro")[0].reset();
+                        $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nuevo Nivel');
                         // $(selector).attr(attributeName);
-                        $('#form-cliente').find('[name="password"]').attr('required', 'true');
-                        $('#form-cliente').find('[name="rep_password"]').attr('required', 'true');
-                        $('[name="persona_id"]').val(0);
+                        $('[name="id"]').val(0);
+
                     },
                     init: function(api, node, config) {
 
@@ -81,7 +80,7 @@ class NivelView {
             },
             order: [[0, 'desc']],
             ajax: {
-                url: route('clientes.listar'),
+                url: route('configuraciones.niveles.listar'),
                 method: 'POST',
                 // headers: {'X-CSRF-TOKEN': token},
                 dataType: "JSON",
@@ -91,7 +90,7 @@ class NivelView {
             columns: [
                 {data: 'id', className: 'text-center'},
                 {data: 'nombre', className: 'text-center'},
-                {data: 'estado', className: 'text-center'},
+                {data: 'estado_color', className: 'text-center'},
                 {data: 'accion', className: 'text-center'},
             ]
         });
@@ -115,7 +114,7 @@ class NivelView {
     }
 
     eventos = () => {
-        $('#form-cliente').submit((e) => {
+        $('#form-registro').submit((e) => {
             e.preventDefault();
             let data = $(e.currentTarget).serialize();
             let button = $(e.currentTarget).find('button[type="submit"]')
@@ -129,15 +128,22 @@ class NivelView {
                 if (respuesta.status == true) {
                     console.log(respuesta);
                     tabla.ajax.reload(null, false);
+                    swal({
+                        title: respuesta.titulo,
+                        text:respuesta.texto,
+                        type: respuesta.titpo
+                    });
+                    // this.listar.$tabla
+                    $('#tabla-data').DataTable().ajax.reload(null, false);
                 }
                 button.removeAttr('disabled')
                 button.find('i').removeClass('fa-spinner fa-spin')
                 button.find('i').addClass('fa-save');
-                $('#modal-cliente').modal('hide');
+                $('#modal-registro').modal('hide');
             }).always(() => {
             }).fail(() => {
                 tabla.ajax.reload(null, false);
-                $('#modal-cliente').modal('hide');
+                $('#modal-registro').modal('hide');
                 button.removeAttr('disabled')
                 button.find('i').removeClass('fa-spinner fa-spin')
                 button.find('i').addClass('fa-save');
@@ -146,19 +152,17 @@ class NivelView {
         });
         $('#tabla-data').on('click', 'a.editar',(e) => {
             e.preventDefault();
-            let id = $(e.currentTarget).attr('data-persona');
+            let id = $(e.currentTarget).attr('data-id');
+            $('#modal-registro').modal('show');
             this.model.editar(id).then((respuesta) => {
                 if(respuesta.status=="success"){
 
-                    $('#modal-cliente').modal('show');
-                    $("#form-cliente")[0].reset();
-                    $("#form-cliente").find('h5.modal-title').text('Esitar Cliente');
 
-                    $('[name="persona_id"]').val(respuesta.persona.id);
-                    $('#form-cliente').find('[name="dni"]').val(respuesta.persona.dni)
-                    $('#form-cliente').find('[name="apellidos"]').val(respuesta.persona.apellidos)
-                    $('#form-cliente').find('[name="nombres"]').val(respuesta.persona.nombres)
-                    $('#form-cliente').find('[name="telefono"]').val(respuesta.persona.telefono)
+                    $("#form-registro")[0].reset();
+                    $("#modal-registro").find('h5.modal-title').text('Editar Nivel');
+
+                    $('[name="id"]').val(respuesta.data.id);
+                    $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
 
                 }
 
@@ -172,27 +176,28 @@ class NivelView {
             e.preventDefault();
             $('#alert-eliminar').modal('show');
             let id = $(e.currentTarget).attr('data-id');
+            let model = this.model;
             // console.log(id);
-            $('#alert-eliminar').find('button[data-action="enviar"]').attr('data-id',id);
-        });
-        $('button[data-action="enviar"]').click((e) => {
-            e.preventDefault();
-            let usuario_id = $(e.currentTarget).attr('data-id');
-            let tabla = this.tabla;
-            $(e.currentTarget).html('<i class="fa fa-spinner fa-spin"></i> Cargando...');
-            this.model.eliminar(usuario_id).then((respuesta) => {
-                $('#alert-eliminar').modal('hide');
-                console.log(respuesta);
-                tabla.ajax.reload(null, false);
-                $(e.currentTarget).find('i').remove();
-                $(e.currentTarget).text('Aceptar');
-            }).always(() => {
-            }).fail(() => {
-                tabla.ajax.reload(null, false);
-                $('#modal-cliente').modal('hide');
-                button.removeAttr('disabled')
-                button.find('i').removeClass('fa-spinner fa-spin')
-                button.find('i').addClass('fa-save');
+            swal({
+                title: "Eliminar",
+                text: "Esta seguro de eliminar el registro.",
+                type: "info",
+                showLoaderOnConfirm: true,
+                confirmButtonText: "Si, aceptar",
+                cancelButtonText: "No, cancelar",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonClass: "btn-danger",
+            }, function () {
+                model.eliminar(id).then((respuesta) => {
+                    swal(respuesta.title, respuesta.text, respuesta.icon)
+                    $('#tabla-data').DataTable().ajax.reload(null, false);
+                }).always(() => {
+
+                }).fail(() => {
+
+                });
+
             });
         });
     }

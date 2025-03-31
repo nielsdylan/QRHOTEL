@@ -42,6 +42,20 @@ class PersonaSeeder extends Seeder
         $data->dni = '2344444';
         $data->telefono = 2344444;
         $data->save();
+        //----USUARIOS
+        $data = new Persona();
+        $data->apellidos = 'LUCAS';
+        $data->nombres = 'ALBER';
+        $data->dni = '454545';
+        $data->telefono = 2344444;
+        $data->save();
+
+        $data = new Persona();
+        $data->apellidos = 'ARMANDO';
+        $data->nombres = 'JORGE';
+        $data->dni = '454545';
+        $data->telefono = 2344444;
+        $data->save();
 
 
     }

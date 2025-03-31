@@ -14,12 +14,6 @@
         inset-inline-start: auto !important;
         float: left;
     }
-    span.select2.select2-container.select2-container--default {
-        width: 100% !important;
-    }
-    span.select2-container.select2-container--default.select2-container--open {
-        z-index: 9999 !important;
-    }
 </style>
 @endsection
 
@@ -32,12 +26,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Gestion de Niveles</h1>
+                <h1 class="page-title">Gestion de Usuarios</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Modulos</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Configuraciones</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Niveles</li>
+                        <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
                     </ol>
                 </div>
             </div>
@@ -50,7 +43,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de Niveles</h3>
+                            <h3 class="card-title">Lista de Usuarios</h3>
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-md-center">
@@ -60,8 +53,10 @@
                                             <thead>
                                                 <tr>
                                                     <th class="wd-15p border-bottom-0">#</th>
-                                                    <th class="wd-15p border-bottom-0">Nombres</th>
+                                                    <th class="wd-15p border-bottom-0">Nombres y <br> Apellidos</th>
+                                                    <th class="wd-15p border-bottom-0">Email</th>
                                                     <th class="wd-10p border-bottom-0">Estado</th>
+
                                                     <th class="wd-25p border-bottom-0">Acción</th>
                                                 </tr>
                                             </thead>
@@ -69,6 +64,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -98,9 +94,64 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="" class="form-label">Nombre</label>
-                                <input type="text" name="nombre" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                                <label for="" class="form-label">DNI</label>
+                                <input type="text" name="dni" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Apellidos</label>
+                                <input type="text" name="apellidos" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Nombres</label>
+                                <input type="text" name="nombres" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Telefono</label>
+                                <input type="text" name="telefono" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Contraseña</label>
+                                <input type="password" name="password" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Confiramr contraseña</label>
+                                <input type="password" name="confirmar_password" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+
                         </div>
                     </div>
 
@@ -110,6 +161,23 @@
                     <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade effect-super-scaled" id="alert-eliminar">
+    <div class="modal-dialog modal-dialog-centered text-center modal-sm" role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body text-center p-4 pb-5">
+                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <i class="icon icon-close fs-70 text-danger lh-1 my-5 d-inline-block"></i>
+                <h4 class="text-danger">Dar de baja reguistro!</h4>
+                <p class="mg-b-20 mg-x-20">Se procedera a inactivar este reguistro de la base de datos.</p>
+                <button class="btn btn-danger pd-x-25" data-action="enviar" data-id="0">Aceptar</button>
+                <button class="btn btn-default pd-x-25" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -136,11 +204,11 @@
 <script src="{{ asset('template/plugins/datatable/responsive.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('template/js/table-data.js') }}"></script>
 
-<script src="{{ asset('modulo/js/configuraciones/niveles/nivel-model.js') }}"></script>
-<script src="{{ asset('modulo/js/configuraciones/niveles/nivel-view.js') }}"></script>
+<script src="{{ asset('modulo/js/configuraciones/usuarios/usuario-model.js') }}"></script>
+<script src="{{ asset('modulo/js/configuraciones/usuarios/usuario-view.js') }}"></script>
 
 <script>
-    const view = new NivelView(new NivelModel(token));
+    const view = new UsuarioView(new UsuarioModel(token));
     view.listar();
     view.eventos();
 </script>

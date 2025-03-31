@@ -4,39 +4,29 @@ class NivelModel {
         this.token = token;
     }
 
-    autoSeleccionar = () =>{
+    guardar = (data) =>{
         return $.ajax({
-            url: route('auto-seleccionar'),
-            type: 'GET',
-            dataType: "JSON",
-            // processData: false,
-            // contentType: false,
-            data: {_token: this.token}
-        });
-    }
-    seleccionarHotel = (id) =>{
-        return $.ajax({
-            url: route('seleccionar-hotel'),
+            url: route('configuraciones.niveles.guardar'),
             type: 'POST',
             dataType: "JSON",
             // processData: false,
             // contentType: false,
-            data: {_token: this.token, id:id}
+            data: data
         });
     }
-    editar = (user_id) =>{
+    editar = (id) =>{
         return $.ajax({
-            url: route('administrador.configuraciones.clientes.editar',{id:user_id}),
+            url: route('configuraciones.niveles.editar',{id:id}),
             type: 'GET',
             dataType: "JSON",
             // processData: false,
             // contentType: false,
-            data: {_token: this.token}
+            data: { _token: this.token }
         });
     }
     eliminar = (id) =>{
         return $.ajax({
-            url: route('administrador.configuraciones.clientes.eliminar',{id:id}),
+            url: route('configuraciones.niveles.eliminar',{id:id}),
             type: 'PUT',
             dataType: "JSON",
             // processData: false,

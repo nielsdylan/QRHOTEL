@@ -1,4 +1,4 @@
-class HabitacionModel {
+class UsuarioModel {
 
     constructor(token) {
         this.token = token;
@@ -6,7 +6,7 @@ class HabitacionModel {
 
     guardar = (data) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.guardar'),
+            url: route('configuraciones.usuarios.guardar'),
             type: 'POST',
             dataType: "JSON",
             // processData: false,
@@ -16,7 +16,7 @@ class HabitacionModel {
     }
     editar = (id) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.editar',{id:id}),
+            url: route('configuraciones.usuarios.editar',{id:id}),
             type: 'GET',
             dataType: "JSON",
             // processData: false,
@@ -26,7 +26,7 @@ class HabitacionModel {
     }
     eliminar = (id) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.eliminar',{id:id}),
+            url: route('configuraciones.usuarios.eliminar',{id:id}),
             type: 'PUT',
             dataType: "JSON",
             // processData: false,

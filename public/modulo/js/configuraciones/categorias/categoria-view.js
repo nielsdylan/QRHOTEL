@@ -1,4 +1,4 @@
-class HabitacionView {
+class CategoriaView {
 
     constructor(model) {
         this.model = model;
@@ -28,13 +28,10 @@ class HabitacionView {
                         // vistaCrear();
                         $('#modal-registro').modal('show');
                         $("#form-registro")[0].reset();
-                        $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nueva Habitación');
+                        $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nueva Categoria');
                         // $(selector).attr(attributeName);
                         $('[name="id"]').val(0);
 
-                        $('#form-registro').find('[name="nivel_id"]').val('').trigger('change.select2');
-                        $('#form-registro').find('[name="tarifa_id"]').val('').trigger('change.select2');
-                        $('#form-registro').find('[name="categoria_id"]').val('').trigger('change.select2');
                     },
                     init: function(api, node, config) {
 
@@ -83,7 +80,7 @@ class HabitacionView {
             },
             order: [[0, 'desc']],
             ajax: {
-                url: route('configuraciones.habitacion.listar'),
+                url: route('configuraciones.categorias.listar'),
                 method: 'POST',
                 // headers: {'X-CSRF-TOKEN': token},
                 dataType: "JSON",
@@ -93,9 +90,6 @@ class HabitacionView {
             columns: [
                 {data: 'id', className: 'text-center'},
                 {data: 'nombre', className: 'text-center'},
-                {data: 'precio', className: 'text-center'},
-                {data: 'nivel', className: 'text-center'},
-                {data: 'categoria', className: 'text-center'},
                 {data: 'estado_color', className: 'text-center'},
                 {data: 'accion', className: 'text-center'},
             ]
@@ -165,15 +159,10 @@ class HabitacionView {
 
 
                     $("#form-registro")[0].reset();
-                    $("#modal-registro").find('h5.modal-title').text('Editar Habitación');
+                    $("#modal-registro").find('h5.modal-title').text('Editar Categoria');
 
                     $('[name="id"]').val(respuesta.data.id);
                     $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
-                    $('#form-registro').find('[name="precio"]').val(respuesta.data.precio)
-
-                    $('#form-registro').find('[name="nivel_id"]').val(respuesta.data.nivel_id).trigger('change.select2');
-                    $('#form-registro').find('[name="tarifa_id"]').val(respuesta.data.tarifa_id).trigger('change.select2');
-                    $('#form-registro').find('[name="categoria_id"]').val(respuesta.data.categoria_id).trigger('change.select2');
 
                 }
 
