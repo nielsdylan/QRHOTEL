@@ -54,6 +54,7 @@ class HabitacionController extends Controller
             ['id' => $request->id],
         );
         $data->nombre = $request->nombre;
+        $data->descripcion = $request->descripcion;
         $data->precio = $request->precio;
         $data->nivel_id = $request->nivel_id;
         $data->tarifa_id = $request->tarifa_id;

@@ -51,7 +51,7 @@ class UsuarioController extends Controller
     public function guardar(Request $request){
 
         // $persona = new Persona();
-        if($request->password !== $request->confirmar_password){
+        if(($request->password) && ($request->password !== $request->confirmar_password)){
             return response()->json([
                 "status"=>true,
                 "titulo"=>"Error",
@@ -78,7 +78,10 @@ class UsuarioController extends Controller
         );
         $user->name = $request->apellidos.' '.$request->nombres;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
+
         $user->persona_id = $persona->id;
         $user->estado = 1;
         $user->save();
@@ -97,9 +100,11 @@ class UsuarioController extends Controller
         ],200);
     }
     public function editar($id) {
-        $persona = Persona::find($id);
+        $usuario = User::find($id);
+        $persona = Persona::find($usuario->persona_id);
         return response()->json([
             "persona"=>$persona,
+            "usuario"=>$usuario,
             "status"=>"success",
         ],200);
     }
@@ -108,13 +113,16 @@ class UsuarioController extends Controller
         $user->estado = 0;
         $user->delete();
         $user->save();
-
-        // $cliente = User::find($id);
-        // $cliente->estado = 2;
-        // $cliente->save();
+        $rrhh = RecursoHumano::where('usuario_id',$id)->where('hotel_id',Auth::user()->hotel_sesion)->first();
+        $rrhh->estado = 0;
+        $rrhh->delete();
+        $rrhh->save();
         return response()->json([
             "usuario"=>$id,
             "status"=>true,
+            "title"=>"Éxito",
+            "text"=>"Se elimino con éxito",
+            "icon"=>"success",
         ],200);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Modulo\Configuraciones\HotelController;
 use App\Http\Controllers\Modulo\Configuraciones\NivelController;
 use App\Http\Controllers\Modulo\Configuraciones\UsuarioController;
 use App\Http\Controllers\Modulo\HomeController;
+use App\Http\Controllers\Modulo\RecepcionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', [HomeController::class, 'home'])->name('home');
     Route::get('auto-seleccionar', [HotelController::class, 'autoSeleccionar'])->name('auto-seleccionar');
     Route::post('seleccionar-hotel', [HotelController::class, 'seleccionarHotel'])->name('seleccionar-hotel');
+
+    Route::name('recepcion.')->prefix('recepcion')->group(function () {
+        Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');
+        Route::get('registrar/{id}', [RecepcionController::class, 'registrar'])->name('registrar');
+
+        Route::post('guardar', [RecepcionController::class, 'guardar'])->name('guardar');
+        Route::get('editar/{id}', [RecepcionController::class, 'editar'])->name('editar');
+        Route::put('eliminar/{id}', [RecepcionController::class, 'eliminar'])->name('eliminar');
+        // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+    });
 
     Route::name('clientes.')->prefix('clientes')->group(function () {
         Route::get('lista', [ClientesController::class, 'lista'])->name('lista');

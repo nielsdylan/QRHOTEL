@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\User;
 use Database\Seeders\Job\CategoriaSeeder;
 use Database\Seeders\Job\ClienteSeeder;
+use Database\Seeders\Job\EstadoHabitacionSeeder;
 use Database\Seeders\Job\HabitacionSeeder;
 use Database\Seeders\Job\HotelSeeder;
+use Database\Seeders\Job\MedioPagoSeeder;
 use Database\Seeders\Job\NivelSeeder;
 use Database\Seeders\Job\PersonaSeeder;
 use Database\Seeders\Job\PropietarioSeeder;
@@ -40,6 +42,8 @@ class DatabaseSeeder extends Seeder
             NivelSeeder::class,
             TarifaSeeder::class,
             HabitacionSeeder::class,
+            EstadoHabitacionSeeder::class,
+            MedioPagoSeeder::class,
         ]);
     }
 }

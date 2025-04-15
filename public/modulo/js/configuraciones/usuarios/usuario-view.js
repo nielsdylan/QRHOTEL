@@ -169,8 +169,15 @@ class UsuarioView {
                     $("#form-registro")[0].reset();
                     $("#modal-registro").find('h5.modal-title').text('Editar Nivel');
 
-                    $('[name="id"]').val(respuesta.data.id);
-                    $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
+                    $('[name="id"]').val(respuesta.usuario.id);
+                    $('#form-registro').find('[name="dni"]').val(respuesta.persona.dni)
+                    $('#form-registro').find('[name="apellidos"]').val(respuesta.persona.apellidos)
+                    $('#form-registro').find('[name="nombres"]').val(respuesta.persona.nombres)
+                    $('#form-registro').find('[name="telefono"]').val(respuesta.persona.telefono)
+                    $('#form-registro').find('[name="email"]').val(respuesta.usuario.email)
+
+                    $('#form-registro').find('[name="password"]').removeAttr('required');
+                    $('#form-registro').find('[name="confirmar_password"]').removeAttr('required');
 
                 }
 
@@ -186,7 +193,6 @@ class UsuarioView {
         */
         $('#tabla-data').on('click', 'a.eliminar',(e) => {
             e.preventDefault();
-            $('#alert-eliminar').modal('show');
             let id = $(e.currentTarget).attr('data-id');
             let model = this.model;
             // console.log(id);

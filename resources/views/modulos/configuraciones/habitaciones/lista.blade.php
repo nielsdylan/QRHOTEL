@@ -151,11 +151,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="">Descripción</label>
+                                <textarea class="form-control" name="descripcion" id="" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Guardar</button>
-                    <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

@@ -169,6 +169,7 @@ class HabitacionView {
 
                     $('[name="id"]').val(respuesta.data.id);
                     $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
+                    $('#form-registro').find('[name="descripcion"]').val(respuesta.data.descripcion)
                     $('#form-registro').find('[name="precio"]').val(respuesta.data.precio)
 
                     $('#form-registro').find('[name="nivel_id"]').val(respuesta.data.nivel_id).trigger('change.select2');

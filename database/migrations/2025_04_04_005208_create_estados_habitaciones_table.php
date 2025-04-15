@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('habitaciones', function (Blueprint $table) {
+        Schema::create('estados_habitaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->float('precio',53);
             $table->string('descripcion');
-            $table->integer('nivel_id');
-            $table->integer('tarifa_id');
-            $table->integer('categoria_id');
-            $table->integer('hotel_id');
+            $table->string('icon');
+            $table->string('color');
             $table->string('estado')->default(1);
+            $table->integer('hotel_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('habitaciones');
+        Schema::dropIfExists('estados_habitaciones');
     }
 };

@@ -4,19 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cliente extends Model
+class EstadoHabitacion extends Model
 {
     //
     use HasFactory, SoftDeletes;
-    protected $table = 'clientes';
-    protected $fillable = ['estado','persona_id'];
+    protected $table = 'estados_habitaciones';
+    protected $fillable = ['nombre','descripcion','icon','color','hotel_id','estado'];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
-
-    public function persona(): HasOne
-    {
-        return $this->hasOne(Persona::class,'id','persona_id');
-    }
 }

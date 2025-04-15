@@ -167,22 +167,6 @@
 
 
 
-<div class="modal fade effect-super-scaled" id="alert-eliminar">
-    <div class="modal-dialog modal-dialog-centered text-center modal-sm" role="document">
-        <div class="modal-content tx-size-sm">
-            <div class="modal-body text-center p-4 pb-5">
-                <button aria-label="Close" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                <i class="icon icon-close fs-70 text-danger lh-1 my-5 d-inline-block"></i>
-                <h4 class="text-danger">Dar de baja reguistro!</h4>
-                <p class="mg-b-20 mg-x-20">Se procedera a inactivar este reguistro de la base de datos.</p>
-                <button class="btn btn-danger pd-x-25" data-action="enviar" data-id="0">Aceptar</button>
-                <button class="btn btn-default pd-x-25" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 @endsection
 
 @section('script')
