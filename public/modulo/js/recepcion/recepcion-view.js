@@ -6,6 +6,17 @@ class RecepcionView {
     }
 
     eventos = () => {
+        $('[data-section="calcular"]').change((e) => {
+            e.preventDefault();
+            console.log(esNumerico($('[name="adelanto"]').val()));
+            let adelanto = esNumerico($('[name="adelanto"]').val());
+            let descuento = esNumerico($('[name="descuento"]').val());
+            let cobrar_extra = esNumerico($('[name="cobrar_extra"]').val());
+            let total = esNumerico($('[name="precio"]').val());
+            let total_final = ((total + cobrar_extra) - descuento)  - adelanto;
+
+            $('[name="total_mostrar"]').val(total_final);
+        });
         $('#form-registro').submit((e) => {
             e.preventDefault();
             let data = $(e.currentTarget).serialize();
@@ -27,9 +38,9 @@ class RecepcionView {
                 //         type: respuesta.titpo
                 //     });
                 // }
-                // button.removeAttr('disabled')
-                // button.find('i').removeClass('fa-spinner fa-spin')
-                // button.find('i').addClass('fa-save');
+                button.removeAttr('disabled')
+                button.find('i').removeClass('fa-spinner fa-spin')
+                button.find('i').addClass('fa-save');
             }).always(() => {
             }).fail(() => {
                 tabla.ajax.reload(null, false);
@@ -96,5 +107,19 @@ class RecepcionView {
 
             });
         });
+        function esNumerico(valor) {
+            // Verifica que no sea null, undefined o vacío
+            if (valor === null || valor === undefined || valor === '') {
+               return 0; // No es válido
+            }
+
+            // Convierte a número y verifica si es realmente un número
+            let numero = Number(valor);
+            if(!isNaN(numero) === true){
+                return numero;
+            }else{
+                return 0;
+            }
+         }
     }
 }

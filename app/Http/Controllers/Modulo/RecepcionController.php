@@ -42,14 +42,29 @@ class RecepcionController extends Controller
     }
     public function guardar(Request $request)
     {
-        // $recepcion = new Recepcion();
-        // $recepcion->habitacion_id = $request->habitacion_id;
-        // $recepcion->cliente_id = $request->cliente_id;
-        // $recepcion->medio_pago_id = $request->medio_pago_id;
-        // $recepcion->estado_habitacion_id = $request->estado_habitacion_id;
-        // $recepcion->fecha_ingreso = date('Y-m-d H:i:s');
-        // $recepcion->hotel_id = Auth::user()->hotel_sesion;
-        // $recepcion->save();
+        $recepcion = Recepcion::firstOrNew(
+            ['id' => $request->id],
+        );
+        $recepcion->fecha_entrada   = date('Y-m-d H:i:s');
+        $recepcion->fecha_salida    = date('Y-m-d H:i:s');
+        $recepcion->hora_entrada    = date('Y-m-d H:i:s');
+        $recepcion->hora_salida     = date('Y-m-d H:i:s');
+        $recepcion->adelanto        = date('Y-m-d H:i:s');
+        $recepcion->total           = date('Y-m-d H:i:s');
+        $recepcion->descuento       = date('Y-m-d H:i:s');
+        $recepcion->cobrar_extra    = date('Y-m-d H:i:s');
+        $recepcion->detalle         = date('Y-m-d H:i:s');
+        $recepcion->email           = date('Y-m-d H:i:s');
+        $recepcion->enviar_correo   = date('Y-m-d H:i:s');
+
+        $recepcion->habitacion_id = date('Y-m-d H:i:s');
+        $recepcion->usuario_id = date('Y-m-d H:i:s');
+        $recepcion->cliente_id = date('Y-m-d H:i:s');
+        $recepcion->medio_pago_id = date('Y-m-d H:i:s');
+        $recepcion->estado_habitacion_id = date('Y-m-d H:i:s');
+        $recepcion->hotel_id = Auth::user()->hotel_sesion;
+        $recepcion->save();
+
         return response()->json([
             'status' => true,
             'message' => 'Recepcion guardada correctamente',

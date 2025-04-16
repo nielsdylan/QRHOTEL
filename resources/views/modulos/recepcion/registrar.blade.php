@@ -118,27 +118,23 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
+                                            <label for="" class="form-label">Adelanto</label>
+                                            <input type="text" name="adelanto" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="0" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
                                             <label for="" class="form-label">Descuento</label>
-                                            <input type="text" name="descuento" class="form-control form-control-sm" placeholder=""  value="0" required />
+                                            <input type="text" name="descuento" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="0" required />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Cobro extra</label>
-                                            <input type="text" name="cobrar_extra" class="form-control form-control-sm" placeholder="" value="0" required />
+                                            <input type="text" name="cobrar_extra" class="form-control form-control-sm" data-section="calcular" placeholder="" value="0" required />
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group select2-sm">
-                                            <label for="" class="form-label">Medio de pago</label>
-                                            <select class="form-select form-select-sm select2 select2-dropdown" name="medio_pago" required>
-                                                <option value="">Select...</option>
-                                                @foreach ($medio_pago as $value)
-                                                <option value="{{$value->id}}">{{$value->nombre}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
@@ -164,9 +160,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">DNI</label>
-                                            <input type="text" class="form-control form-control-sm" placeholder="" disabled />
+                                        <div class="form-group select2-sm">
+                                            <label for="" class="form-label">Medio de pago</label>
+                                            <select class="form-select form-select-sm select2 select2-dropdown" name="medio_pago" required>
+                                                <option value="">Select...</option>
+                                                @foreach ($medio_pago as $value)
+                                                <option value="{{$value->id}}">{{$value->nombre}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
