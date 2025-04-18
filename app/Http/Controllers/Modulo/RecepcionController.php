@@ -42,33 +42,42 @@ class RecepcionController extends Controller
     }
     public function guardar(Request $request)
     {
-        $recepcion = Recepcion::firstOrNew(
-            ['id' => $request->id],
-        );
-        $recepcion->fecha_entrada   = date('Y-m-d H:i:s');
-        $recepcion->fecha_salida    = date('Y-m-d H:i:s');
-        $recepcion->hora_entrada    = date('Y-m-d H:i:s');
-        $recepcion->hora_salida     = date('Y-m-d H:i:s');
-        $recepcion->adelanto        = date('Y-m-d H:i:s');
-        $recepcion->total           = date('Y-m-d H:i:s');
-        $recepcion->descuento       = date('Y-m-d H:i:s');
-        $recepcion->cobrar_extra    = date('Y-m-d H:i:s');
-        $recepcion->detalle         = date('Y-m-d H:i:s');
-        $recepcion->email           = date('Y-m-d H:i:s');
-        $recepcion->enviar_correo   = date('Y-m-d H:i:s');
+        try {
+            $recepcion = Recepcion::firstOrNew(
+                ['id' => $request->id],
+            );
+            $recepcion->fecha_entrada   = $request->fecha_entrada;
+            $recepcion->fecha_salida    = $request->fecha_salida;
+            $recepcion->hora_entrada    = $request->hora_entrada;
+            $recepcion->hora_salida     = $request->hora_salida;
+            $recepcion->adelanto        = $request->adelanto;
+            $recepcion->total           = $request->total;
+            $recepcion->descuento       = $request->descuento;
+            $recepcion->cobrar_extra    = $request->cobrar_extra;
+            $recepcion->detalle         = $request->detalle;
+            // $recepcion->email           = $request->email;
+            // $recepcion->enviar_correo   = $request->enviar_correo;
 
-        $recepcion->habitacion_id = date('Y-m-d H:i:s');
-        $recepcion->usuario_id = date('Y-m-d H:i:s');
-        $recepcion->cliente_id = date('Y-m-d H:i:s');
-        $recepcion->medio_pago_id = date('Y-m-d H:i:s');
-        $recepcion->estado_habitacion_id = date('Y-m-d H:i:s');
-        $recepcion->hotel_id = Auth::user()->hotel_sesion;
-        $recepcion->save();
+            $recepcion->habitacion_id           = $request->habitacion_id;
+            $recepcion->usuario_id              = Auth::user()->id;
+            $recepcion->cliente_id              = $request->cliente_id;
+            $recepcion->medio_pago_id           = $request->medio_pago_id;
+            $recepcion->estado_habitacion_id    = $request->estado_habitacion_id;
+            $recepcion->hotel_id = Auth::user()->hotel_sesion;
+            $recepcion->save();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Recepcion guardada correctamente',
-            'data' => $request->all(),
-        ]);
+            return response()->json([
+                'title' => "Éxito",
+                'text' => 'Se guardó correctamente',
+                'icon' => 'success',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'title' => "Error",
+                'text' => 'Se genero un error comunicar el departamento de sistemas',
+                'icon' => 'error',
+            ]);
+        }
+
     }
 }

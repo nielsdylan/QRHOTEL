@@ -55,7 +55,9 @@
                                                 <span class=""><i class="fe fe-more-vertical"></i></span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="{{ route('recepcion.registrar', ['id'=>$value->id]) }}">Registrar habitacion</a>
+                                                <a class="dropdown-item" href="{{ route('recepcion.registrar', ['id'=>$value->id]) }}">
+                                                    Registrar habitacion
+                                                </a>
 
                                                 {{-- <a class="dropdown-item" href="javascript:void(0)">Delete Post</a>
                                                 <a class="dropdown-item" href="javascript:void(0)">Personal Settings</a> --}}
