@@ -9,6 +9,7 @@ use App\Http\Controllers\Modulo\Configuraciones\NivelController;
 use App\Http\Controllers\Modulo\Configuraciones\UsuarioController;
 use App\Http\Controllers\Modulo\HomeController;
 use App\Http\Controllers\Modulo\RecepcionController;
+use App\Http\Controllers\Modulo\ReservaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', [HomeController::class, 'home'])->name('home');
     Route::get('auto-seleccionar', [HotelController::class, 'autoSeleccionar'])->name('auto-seleccionar');
     Route::post('seleccionar-hotel', [HotelController::class, 'seleccionarHotel'])->name('seleccionar-hotel');
+
+    Route::name('reserva.')->prefix('reserva')->group(function () {
+        Route::get('calendario', [ReservaController::class, 'calendario'])->name('calendario');
+        Route::get('lista-reservas', [ReservaController::class, 'listaReservas'])->name('lista-reservas');
+    });
 
     Route::name('recepcion.')->prefix('recepcion')->group(function () {
         Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');

@@ -9149,8 +9149,13 @@ a.fc-event:hover {
     /* needs to be margin, not padding, so that available cell height can be computed */
 }
 
-.fc .fc-daygrid-body-balanced .fc-daygrid-day-events {
+/* .fc .fc-daygrid-body-balanced .fc-daygrid-day-events { */
     /* position: absolute; */
+    /* inset-inline-start: 0;
+    inset-inline-end: 0;
+} */
+.fc .fc-daygrid-body-balanced .fc-daygrid-day-events {
+    position: absolute;
     inset-inline-start: 0;
     inset-inline-end: 0;
 }
