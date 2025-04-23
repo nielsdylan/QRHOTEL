@@ -6374,8 +6374,15 @@ ul.dropdown-menu li.dropdown ul.dropdown-menu .dropdown-plus-title {
     background-color: #fff;
     outline: 0;
     box-shadow: none;
-    border-color: #e9edf4;
+    border-color: var(--primary-bg-color) !important;
 }
+/* .form-control:focus {
+    color: #6f6e6e;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: none;
+    border-color: #e9edf4;
+} */
 
 .form-control::-webkit-input-placeholder,
 .form-control::-moz-placeholder,

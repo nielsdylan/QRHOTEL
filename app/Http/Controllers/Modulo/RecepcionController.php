@@ -26,6 +26,7 @@ class RecepcionController extends Controller
     {
         $habitacion = Habitacion::find($id);
         $recepcion = Recepcion::where('habitacion_id', $id)
+            ->where('hotel_id', Auth::user()->hotel_sesion)
             ->where('estado', 1)
             ->first();
         $medio_pago = MedioPago::where('hotel_id', Auth::user()->hotel_sesion)

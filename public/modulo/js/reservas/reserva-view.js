@@ -36,10 +36,19 @@ class ReservaView {
                 }
                 calendar.unselect()
             },
-            eventClick: function(arg) {
-                if (confirm('Are you sure you want to delete this event?')) {
-                    arg.event.remove()
-                }
+            eventClick: function({el, event, jsEvent, view}) {
+                // console.log(event);
+                // console.log(jsEvent);
+                // console.log(view);
+                // console.log(el);
+                $('#modal-registro').modal('show');
+                $('#form-registro')[0].reset();
+                $("#modal-registro").find('h6.modal-title').text('Editar Reserva');
+                $('[name="id"]').val(event.id);
+                // $('#form-registro').find('[name="nombre"]').val(event.title)
+                // $('#form-registro').find('[name="descripcion"]').val(event.descripcion)
+                // $('#form-registro').find('[name="precio"]').val(event.precio)
+
             },
             editable: true,
             dayMaxEvents: true, // allow "more" link when too many events
