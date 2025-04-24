@@ -61,6 +61,7 @@
                 <input type="hidden" name="id" value="0">
                 <div class="modal-body">
                     <section data-action="cliente">
+                        <input type="hidden" name="cliente_id" value="0">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">

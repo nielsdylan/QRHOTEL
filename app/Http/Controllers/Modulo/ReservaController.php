@@ -56,4 +56,18 @@ class ReservaController extends Controller
         // }
         return response()->json($reservas,200);
     }
+    public function obtenerReserva($id) {
+        $reserva = Recepcion::find($id);
+        if ($reserva) {
+            return response()->json([
+                "data" => $reserva,
+                "cliente" => $reserva->cliente->persona,
+                "estado" => true,
+            ], 200);
+        }
+        return response()->json([
+            "data" => $reserva,
+            "estado" => false,
+        ], 200);
+    }
 }

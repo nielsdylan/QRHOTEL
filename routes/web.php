@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('reserva.')->prefix('reserva')->group(function () {
         Route::get('calendario', [ReservaController::class, 'calendario'])->name('calendario');
         Route::get('lista-reservas', [ReservaController::class, 'listaReservas'])->name('lista-reservas');
+        Route::get('obtener-reserva/{id}', [ReservaController::class, 'obtenerReserva'])->name('obtener-reserva');
     });
 
     Route::name('recepcion.')->prefix('recepcion')->group(function () {

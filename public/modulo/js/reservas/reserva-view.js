@@ -5,6 +5,7 @@ class ReservaView {
         this.calendario
     }
     calendario = () => {
+        let model = this.model;
         var calendarEl = document.getElementById('calendar2');
 
         this.calendario = new FullCalendar.Calendar(calendarEl, {
@@ -24,31 +25,26 @@ class ReservaView {
             droppable: true, // this allows things to be dropped onto the calen
 
 
-            select: function(arg) {
-                var title = prompt('Event Title:');
-                if (title) {
-                    calendar.addEvent({
-                        title: title,
-                        start: arg.start,
-                        end: arg.end,
-                        allDay: arg.allDay
-                    })
-                }
-                calendar.unselect()
+            select: function({allDay, end, endStr, jsEvent, start, startStr, view}) {
+                $('#modal-registro').modal('show');
+                $('#form-registro')[0].reset();
+                $("#modal-registro").find('h6.modal-title').text('Nueva Reserva');
+                $('[name="id"]').val(0);
             },
             eventClick: function({el, event, jsEvent, view}) {
-                // console.log(event);
-                // console.log(jsEvent);
-                // console.log(view);
-                // console.log(el);
                 $('#modal-registro').modal('show');
                 $('#form-registro')[0].reset();
                 $("#modal-registro").find('h6.modal-title').text('Editar Reserva');
                 $('[name="id"]').val(event.id);
-                // $('#form-registro').find('[name="nombre"]').val(event.title)
-                // $('#form-registro').find('[name="descripcion"]').val(event.descripcion)
-                // $('#form-registro').find('[name="precio"]').val(event.precio)
 
+                model.obtenerReserva(event.id).then((respuesta) => {
+                    console.log(respuesta);
+
+                }).always(() => {
+                }).fail(() => {
+                    console.log('error-calendario');
+
+                });
             },
             editable: true,
             dayMaxEvents: true, // allow "more" link when too many events

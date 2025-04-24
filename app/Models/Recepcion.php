@@ -20,4 +20,8 @@ class Recepcion extends Model
     {
         return $this->hasOne(Habitacion::class,'id','habitacion_id');
     }
+    public function cliente(): HasOne
+    {
+        return $this->hasOne(Cliente::class,'id','cliente_id');
+    }
 }

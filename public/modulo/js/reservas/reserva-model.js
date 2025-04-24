@@ -34,4 +34,15 @@ class ReservaModel {
             data: { _token: this.token }
         });
     }
+
+    obtenerReserva = (id) =>{
+        return $.ajax({
+            url: route('reserva.obtener-reserva',{id:id}),
+            type: 'GET',
+            dataType: "JSON",
+            // processData: false,
+            // contentType: false,
+            data: { _token: this.token }
+        });
+    }
 }
