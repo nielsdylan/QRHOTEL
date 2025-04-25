@@ -39,6 +39,21 @@ class ReservaView {
 
                 model.obtenerReserva(event.id).then((respuesta) => {
                     console.log(respuesta);
+                    $('#form-registro').find('[name="dni"]').val(respuesta.cliente.dni);
+                    $('#form-registro').find('[name="apellidos"]').val(respuesta.cliente.apellidos);
+                    $('#form-registro').find('[name="nombres"]').val(respuesta.cliente.nombres);
+                    $('#form-registro').find('[name="telefono"]').val(respuesta.cliente.telefono);
+
+                    $('#form-registro').find('[name="fecha_entrada"]').val(respuesta.data.fecha_entrada);
+                    $('#form-registro').find('[name="hora_entrada"]').val(respuesta.data.hora_entrada);
+                    $('#form-registro').find('[name="fecha_salida"]').val(respuesta.data.fecha_salida);
+                    $('#form-registro').find('[name="hora_salida"]').val(respuesta.data.hora_salida);
+                    $('#form-registro').find('[name="total_mostrar"]').val(respuesta.data.total);
+                    $('#form-registro').find('[name="adelanto"]').val(respuesta.data.adelanto);
+                    $('#form-registro').find('[name="descuento"]').val(respuesta.data.descuento);
+                    $('#form-registro').find('[name="cobrar_extra"]').val(respuesta.data.cobrar_extra);
+                    $('#form-registro').find('[name="medio_pago_id"]').val(respuesta.data.medio_pago_id);
+                    $('#form-registro').find('[name="detalle"]').val(respuesta.data.detalle);
 
                 }).always(() => {
                 }).fail(() => {

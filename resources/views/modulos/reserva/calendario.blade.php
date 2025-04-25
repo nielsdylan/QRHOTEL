@@ -58,7 +58,7 @@
             </div>
             <form action="" id="form-registro">
                 @csrf
-                <input type="hidden" name="id" value="0">
+                <input type="hidden" name="recepcion_id" value="0">
                 <div class="modal-body">
                     <section data-action="cliente">
                         <input type="hidden" name="cliente_id" value="0">
