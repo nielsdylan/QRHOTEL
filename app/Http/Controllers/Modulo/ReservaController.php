@@ -70,4 +70,35 @@ class ReservaController extends Controller
             "estado" => false,
         ], 200);
     }
+    public function guardar(Request $request) {
+        // $cliente = Cliente::where('dni',)->firs();
+        $recepcion = Recepcion::firstOrNew(
+            ['id' => $request->recepcion_id],
+        );
+        $recepcion->fecha_entrada   = $request->fecha_entrada;
+        $recepcion->fecha_salida    = $request->fecha_salida;
+        $recepcion->hora_entrada    = $request->hora_entrada;
+        $recepcion->hora_salida     = $request->hora_salida;
+        $recepcion->adelanto        = $request->adelanto;
+        $recepcion->total           = $request->total;
+        $recepcion->descuento       = $request->descuento;
+        $recepcion->cobrar_extra    = $request->cobrar_extra;
+        $recepcion->detalle         = $request->detalle;
+        // $recepcion->email           = $request->email;
+        // $recepcion->enviar_correo   = $request->enviar_correo;
+
+        $recepcion->habitacion_id           = $request->habitacion_id;
+        $recepcion->usuario_id              = Auth::user()->id;
+        $recepcion->cliente_id              = $request->cliente_id;
+        $recepcion->medio_pago_id           = $request->medio_pago_id;
+        $recepcion->estado_habitacion_id    = $request->estado_habitacion_id;
+        $recepcion->hotel_id = Auth::user()->hotel_sesion;
+        $recepcion->save();
+
+        return response()->json([
+            'title' => "Éxito",
+            'text' => 'Se guardó correctamente',
+            'icon' => 'success',
+        ]);
+    }
 }

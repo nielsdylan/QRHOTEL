@@ -52,7 +52,11 @@ class ReservaView {
                     $('#form-registro').find('[name="adelanto"]').val(respuesta.data.adelanto);
                     $('#form-registro').find('[name="descuento"]').val(respuesta.data.descuento);
                     $('#form-registro').find('[name="cobrar_extra"]').val(respuesta.data.cobrar_extra);
-                    $('#form-registro').find('[name="medio_pago_id"]').val(respuesta.data.medio_pago_id);
+                    // $('#form-registro').find('[name="medio_pago_id"]').val(respuesta.data.medio_pago_id);
+
+                    $('#form-registro').find('[name="medio_pago_id"]').val('').trigger('change.select2');
+                    $('#form-registro').find('[name="medio_pago_id"]').val(respuesta.data.medio_pago_id).trigger('change.select2');
+
                     $('#form-registro').find('[name="detalle"]').val(respuesta.data.detalle);
 
                 }).always(() => {
