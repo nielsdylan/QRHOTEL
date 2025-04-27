@@ -128,6 +128,6 @@ class RecepcionView {
             }else{
                 return 0;
             }
-         }
+        }
     }
 }

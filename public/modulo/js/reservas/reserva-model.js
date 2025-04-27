@@ -6,7 +6,7 @@ class ReservaModel {
 
     guardar = (data) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.guardar'),
+            url: route('reserva.guardar'),
             type: 'POST',
             dataType: "JSON",
             // processData: false,
@@ -14,7 +14,7 @@ class ReservaModel {
             data: data
         });
     }
-    editar = (id) =>{
+    obtenerHabitacion = (id) =>{
         return $.ajax({
             url: route('configuraciones.habitacion.editar',{id:id}),
             type: 'GET',
@@ -24,9 +24,19 @@ class ReservaModel {
             data: { _token: this.token }
         });
     }
+    habitacionEstados = () =>{
+        return $.ajax({
+            url: route('configuraciones.habitacion.estados'),
+            type: 'GET',
+            dataType: "JSON",
+            // processData: false,
+            // contentType: false,
+            data: { _token: this.token }
+        });
+    }
     eliminar = (id) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.eliminar',{id:id}),
+            url: route('reserva.eliminar',{id:id}),
             type: 'PUT',
             dataType: "JSON",
             // processData: false,

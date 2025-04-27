@@ -59,9 +59,24 @@
             <form action="" id="form-registro">
                 @csrf
                 <input type="hidden" name="recepcion_id" value="0">
+                <input type="hidden" name="cliente_id" value="0">
+                <input type="hidden" name="persona_id" value="0">
+                {{-- <input type="hidden" name="habitacion_id" value="0"> --}}
                 <div class="modal-body">
                     <section data-action="cliente">
-                        <input type="hidden" name="cliente_id" value="0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group select2-sm">
+                                    <label for="" class="form-label">Habitaciones</label>
+                                    <select class="form-select form-select-sm select2 select2-dropdown" name="habitacion_id" data-action="obtener-habitacion" required>
+                                        <option value="">Select...</option>
+                                        {{-- @foreach ($habitaciones as $value)
+                                        <option value="{{$value->id}}" {{ ($value->estadoHabitacion($value->id)->id == 8 ? 'disabled' : '') }}>{{$value->nombre .' - '. $value->estadoHabitacion($value->id)->nombre}}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
@@ -143,31 +158,42 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Adelanto</label>
-                                    <input type="text" name="adelanto" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="" required />
+                                    <input type="text" name="adelanto" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="0" required />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Descuento</label>
-                                    <input type="text" name="descuento" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="" required />
+                                    <input type="text" name="descuento" class="form-control form-control-sm" data-section="calcular" placeholder=""  value="0" required />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Cobro extra</label>
-                                    <input type="text" name="cobrar_extra" class="form-control form-control-sm" data-section="calcular" placeholder="" value="" required />
+                                    <input type="text" name="cobrar_extra" class="form-control form-control-sm" data-section="calcular" placeholder="" value="0" required />
                                 </div>
                             </div>
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group select2-sm">
                                     <label for="" class="form-label">Medio de pago</label>
                                     <select class="form-select form-select-sm select2 select2-dropdown" name="medio_pago_id" required>
                                         <option value="">Select...</option>
                                         @foreach ($medio_pago as $value)
                                         <option value="{{$value->id}}" >{{$value->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group select2-sm">
+                                    <label for="" class="form-label">Estado de habitacion</label>
+                                    <select class="form-select form-select-sm select2 select2-dropdown" name="estado_habitacion_id" required>
+                                        <option value="">Select...</option>
+                                        @foreach ($estado_habitacion as $value)
+                                        <option value="{{$value->id}}">{{$value->nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -212,6 +238,6 @@
 
     const view = new ReservaView(new ReservaModel(token));
     view.calendario();
-    // view.eventos();
+    view.eventos();
 </script>
 @endsection

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('dni');
             $table->integer('telefono');
             $table->integer('estado')->default(1);
+            $table->integer('hotel_id');
             $table->timestamps();
             $table->softDeletes();
         });

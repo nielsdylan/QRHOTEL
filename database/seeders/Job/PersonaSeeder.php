@@ -19,6 +19,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'ADMIN';
         $data->dni = '123456789';
         $data->telefono = 1234567998;
+        $data->hotel_id = 1;
         $data->save();
 
         $data = new Persona();
@@ -26,6 +27,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'RODRIGO';
         $data->dni = '99999';
         $data->telefono = 89898;
+        $data->hotel_id = 1;
         $data->save();
 
         $data = new Persona();
@@ -33,6 +35,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'JUAN';
         $data->dni = '2332323';
         $data->telefono = 3232323;
+        $data->hotel_id = 1;
         $data->save();
 
 
@@ -41,6 +44,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'ALEX';
         $data->dni = '2344444';
         $data->telefono = 2344444;
+        $data->hotel_id = 1;
         $data->save();
         //----USUARIOS
         $data = new Persona();
@@ -48,6 +52,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'ALBER';
         $data->dni = '454545';
         $data->telefono = 2344444;
+        $data->hotel_id = 1;
         $data->save();
 
         $data = new Persona();
@@ -55,6 +60,7 @@ class PersonaSeeder extends Seeder
         $data->nombres = 'JORGE';
         $data->dni = '454545';
         $data->telefono = 2344444;
+        $data->hotel_id = 1;
         $data->save();
 
 

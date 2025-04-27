@@ -22506,6 +22506,7 @@ div.dtr-bs-modal table.table tr:first-child td {
     margin: 0;
     position: relative;
     vertical-align: middle;
+    z-index: 9999 !important;
 }
 
 .select2-container .select2-selection--single {

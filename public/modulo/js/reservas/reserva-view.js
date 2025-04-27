@@ -8,7 +8,8 @@ class ReservaView {
         let model = this.model;
         var calendarEl = document.getElementById('calendar2');
 
-        this.calendario = new FullCalendar.Calendar(calendarEl, {
+        // this.calendario = new FullCalendar.Calendar(calendarEl, {
+        let Fullcalendario = new FullCalendar.Calendar(calendarEl, {
 
             headerToolbar: {
                 left: 'prev,next today',
@@ -22,6 +23,7 @@ class ReservaView {
             editable: true,
             selectable: true,
             selectMirror: true,
+            editable: true,
             droppable: true, // this allows things to be dropped onto the calen
 
 
@@ -29,26 +31,53 @@ class ReservaView {
                 $('#modal-registro').modal('show');
                 $('#form-registro')[0].reset();
                 $("#modal-registro").find('h6.modal-title').text('Nueva Reserva');
-                $('[name="id"]').val(0);
+                $('[name="recepcion_id"]').val(0);
+                $('[name="cliente_id"]').val(0);
+                $('[name="persona_id"]').val(0);
+                $('[name="habitacion_id"]').val(0);
+
+                $('[name="precio"]').val(0);
+                $('[name="total"]').val(0);
+
+                $('#form-registro').find('[name="fecha_entrada"]').val(startStr);
+                $('#form-registro').find('[name="fecha_salida"]').val(endStr);
+
+                $('#form-registro').find('[name="medio_pago_id"]').val('').trigger('change.select2');
+                $('#form-registro').find('[name="estado_habitacion_id"]').val('').trigger('change.select2');
+                $('#form-registro').find('[name="habitacion_id"]').val('').trigger('change.select2');
+
+                $('#form-registro').find('[name="habitacion_id"]').select2('destroy');
+                model.habitacionEstados().then((respuesta) => {
+                    console.log(respuesta);
+                }).always(() => {
+                }).fail(() => {
+                    console.log('error-calendario');
+
+                });
             },
             eventClick: function({el, event, jsEvent, view}) {
                 $('#modal-registro').modal('show');
                 $('#form-registro')[0].reset();
                 $("#modal-registro").find('h6.modal-title').text('Editar Reserva');
-                $('[name="id"]').val(event.id);
+                // $('[name="id"]').val(event.id);
 
                 model.obtenerReserva(event.id).then((respuesta) => {
                     console.log(respuesta);
-                    $('#form-registro').find('[name="dni"]').val(respuesta.cliente.dni);
-                    $('#form-registro').find('[name="apellidos"]').val(respuesta.cliente.apellidos);
-                    $('#form-registro').find('[name="nombres"]').val(respuesta.cliente.nombres);
-                    $('#form-registro').find('[name="telefono"]').val(respuesta.cliente.telefono);
+                    $('#form-registro').find('[name="dni"]').val(respuesta.persona.dni);
+                    $('#form-registro').find('[name="apellidos"]').val(respuesta.persona.apellidos);
+                    $('#form-registro').find('[name="nombres"]').val(respuesta.persona.nombres);
+                    $('#form-registro').find('[name="telefono"]').val(respuesta.persona.telefono);
 
                     $('#form-registro').find('[name="fecha_entrada"]').val(respuesta.data.fecha_entrada);
                     $('#form-registro').find('[name="hora_entrada"]').val(respuesta.data.hora_entrada);
                     $('#form-registro').find('[name="fecha_salida"]').val(respuesta.data.fecha_salida);
                     $('#form-registro').find('[name="hora_salida"]').val(respuesta.data.hora_salida);
                     $('#form-registro').find('[name="total_mostrar"]').val(respuesta.data.total);
+
+                    $('#form-registro').find('[name="total"]').val(respuesta.data.total);
+                    $('#form-registro').find('[name="precio"]').val(respuesta.habitacion.precio);
+
+
                     $('#form-registro').find('[name="adelanto"]').val(respuesta.data.adelanto);
                     $('#form-registro').find('[name="descuento"]').val(respuesta.data.descuento);
                     $('#form-registro').find('[name="cobrar_extra"]').val(respuesta.data.cobrar_extra);
@@ -56,9 +85,18 @@ class ReservaView {
 
                     $('#form-registro').find('[name="medio_pago_id"]').val('').trigger('change.select2');
                     $('#form-registro').find('[name="medio_pago_id"]').val(respuesta.data.medio_pago_id).trigger('change.select2');
+                    $('#form-registro').find('[name="estado_habitacion_id"]').val('').trigger('change.select2');
+                    $('#form-registro').find('[name="estado_habitacion_id"]').val(respuesta.data.estado_habitacion_id).trigger('change.select2');
+
+                    $('#form-registro').find('[name="habitacion_id"]').val('').trigger('change.select2');
+                    $('#form-registro').find('[name="habitacion_id"]').val(respuesta.habitacion.id).trigger('change.select2');
 
                     $('#form-registro').find('[name="detalle"]').val(respuesta.data.detalle);
-
+                    $('#form-registro').find('[name="recepcion_id"]').val(respuesta.data.id);
+                    $('#form-registro').find('[name="cliente_id"]').val(respuesta.data.cliente_id);
+                    $('#form-registro').find('[name="persona_id"]').val(respuesta.data.cliente.persona_id);
+                    // $('#form-registro').find('[name="habitacion_id"]').val(respuesta.habitacion.id);
+                    // Fullcalendario.refetchEvents();
                 }).always(() => {
                 }).fail(() => {
                     console.log('error-calendario');
@@ -69,16 +107,20 @@ class ReservaView {
             dayMaxEvents: true, // allow "more" link when too many events
             events: route('reserva.lista-reservas'),
         });
-
-        this.calendario.render();
+        Fullcalendario.render();
+        this.calendario = Fullcalendario;
     }
 
     eventos = () => {
+        /*
+        * * Se guarda el registro de la reserva
+        */
         $('#form-registro').submit((e) => {
             e.preventDefault();
             let data = $(e.currentTarget).serialize();
             let button = $(e.currentTarget).find('button[type="submit"]')
             let tabla = this.tabla;
+            let Fullcalendario = this.calendario;
             button.attr('disabled','true');
             button.find('i').removeClass('fa-save')
             button.find('i').addClass('fa-spinner fa-spin');
@@ -86,7 +128,6 @@ class ReservaView {
             this.model.guardar(data).then((respuesta) => {
 
                 if (respuesta.status == true) {
-                    console.log(respuesta);
                     tabla.ajax.reload(null, false);
                     swal({
                         title: respuesta.titulo,
@@ -99,7 +140,8 @@ class ReservaView {
                 button.removeAttr('disabled')
                 button.find('i').removeClass('fa-spinner fa-spin')
                 button.find('i').addClass('fa-save');
-                $('#modal-registro').modal('hide');
+                // $('#modal-registro').modal('hide');
+                Fullcalendario.refetchEvents();
             }).always(() => {
             }).fail(() => {
                 tabla.ajax.reload(null, false);
@@ -109,6 +151,62 @@ class ReservaView {
                 button.find('i').addClass('fa-save');
             });
 
+        });
+
+        /*
+        * * calcular el total de la reserva y verifica que no coloque letras
+        * * en los campos de adelanto, descuento y cobrar extra
+        * * y el total de la reserva
+        */
+        $('[data-section="calcular"]').change((e) => {
+            e.preventDefault();
+            console.log(esNumerico($('[name="adelanto"]').val()));
+            let adelanto = esNumerico($('[name="adelanto"]').val());
+            let descuento = esNumerico($('[name="descuento"]').val());
+            let cobrar_extra = esNumerico($('[name="cobrar_extra"]').val());
+            let total = esNumerico($('[name="precio"]').val());
+            let total_final = ((total + cobrar_extra) - descuento)  - adelanto;
+
+            $('[name="total_mostrar"]').val(total_final);
+            $('[name="total"]').val(total_final);
+
+            $('[name="adelanto"]').val(adelanto);
+            $('[name="descuento"]').val(descuento);
+            $('[name="cobrar_extra"]').val(cobrar_extra);
+        });
+
+
+        function esNumerico(valor) {
+            // Verifica que no sea null, undefined o vacío
+            if (valor === null || valor === undefined || valor === '') {
+               return 0; // No es válido
+            }
+
+            // Convierte a número y verifica si es realmente un número
+            let numero = Number(valor);
+            if(!isNaN(numero) === true){
+                return numero;
+            }else{
+                return 0;
+            }
+        }
+
+        $('[data-action="obtener-habitacion"]').change((e) => {
+            e.preventDefault();
+            let id = $(e.currentTarget).val();
+            console.log(id);
+
+            this.model.obtenerHabitacion(id).then((respuesta) => {
+                $('#form-registro').find('[name="precio"]').val(respuesta.data.precio);
+                $('#form-registro').find('[name="total"]').val(respuesta.data.precio);
+                $('#form-registro').find('[name="total_mostrar"]').val(respuesta.data.precio);
+
+
+            }).always(() => {
+
+            }).fail(() => {
+
+            });
         });
         $('#tabla-data').on('click', 'a.editar',(e) => {
             e.preventDefault();

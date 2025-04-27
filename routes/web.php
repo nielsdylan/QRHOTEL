@@ -60,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [HabitacionController::class, 'guardar'])->name('guardar');
             Route::get('editar/{id}', [HabitacionController::class, 'editar'])->name('editar');
             Route::put('eliminar/{id}', [HabitacionController::class, 'eliminar'])->name('eliminar');
-            // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
+            Route::get('estados', [HabitacionController::class, 'estados'])->name('estados');
         });
         Route::name('niveles.')->prefix('niveles')->group(function () {
             Route::get('lista', [NivelController::class, 'lista'])->name('lista');

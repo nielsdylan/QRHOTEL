@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Modulo;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\EstadoHabitacion;
+use App\Models\Habitacion;
 use App\Models\MedioPago;
+use App\Models\Persona;
 use App\Models\Recepcion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,13 @@ class ReservaController extends Controller
         $clientes = Cliente::where('hotel_id', Auth::user()->hotel_sesion)
             ->where('estado', 1)
             ->get();
+        $habitaciones = Habitacion::where('hotel_id', Auth::user()->hotel_sesion)
+            ->where('estado', 1)
+            ->get();
+            // foreach ($habitaciones as $key => $value) {
+            //     $value->estadoHabitacion = $value->estadoHabitacion($value->id);
+            // }
+            // return $habitaciones;
         return view('modulos.reserva.calendario', get_defined_vars());
     }
     public function listaReservas(){
@@ -61,7 +70,8 @@ class ReservaController extends Controller
         if ($reserva) {
             return response()->json([
                 "data" => $reserva,
-                "cliente" => $reserva->cliente->persona,
+                "habitacion" => $reserva->habitacion,
+                "persona" => $reserva->cliente->persona,
                 "estado" => true,
             ], 200);
         }
@@ -71,7 +81,32 @@ class ReservaController extends Controller
         ], 200);
     }
     public function guardar(Request $request) {
-        // $cliente = Cliente::where('dni',)->firs();
+        $cliente_id = $request->cliente_id;
+        if((int) $request->cliente_id == 0){
+
+            $persona = Persona::where('dni',$request->dni)->where('hotel_id',Auth::user()->hotel_sesion)->first();
+            if(!$persona){
+                $persona = new Persona();
+            }
+            $persona->nombres = $request->nombres;
+            $persona->apellidos = $request->apellidos;
+            $persona->dni = $request->dni;
+            $persona->telefono = $request->telefono;
+            // $persona->email = $request->email;
+            $persona->hotel_id = Auth::user()->hotel_sesion;
+            $persona->save();
+
+            $cliente = Cliente::where('persona_id',$persona->id)->where('hotel_id',Auth::user()->hotel_sesion)->first();
+            if(!$cliente){
+                $cliente = new Cliente();
+            }
+            $cliente->persona_id = $persona->id;
+            $cliente->hotel_id = Auth::user()->hotel_sesion;
+            $cliente->estado = 1;
+            $cliente->save();
+            $cliente_id = $cliente->id;
+        }
+
         $recepcion = Recepcion::firstOrNew(
             ['id' => $request->recepcion_id],
         );
@@ -84,12 +119,9 @@ class ReservaController extends Controller
         $recepcion->descuento       = $request->descuento;
         $recepcion->cobrar_extra    = $request->cobrar_extra;
         $recepcion->detalle         = $request->detalle;
-        // $recepcion->email           = $request->email;
-        // $recepcion->enviar_correo   = $request->enviar_correo;
-
         $recepcion->habitacion_id           = $request->habitacion_id;
         $recepcion->usuario_id              = Auth::user()->id;
-        $recepcion->cliente_id              = $request->cliente_id;
+        $recepcion->cliente_id              = $cliente_id;
         $recepcion->medio_pago_id           = $request->medio_pago_id;
         $recepcion->estado_habitacion_id    = $request->estado_habitacion_id;
         $recepcion->hotel_id = Auth::user()->hotel_sesion;

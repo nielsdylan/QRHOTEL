@@ -87,4 +87,14 @@ class HabitacionController extends Controller
             "icon"=>"success"
         ],200);
     }
+    public function estados(Request $request){
+        $habitacion = Habitacion::where('hotel_id', Auth::user()->hotel_sesion)->get();
+        foreach ($habitacion as $key => $value) {
+            $value->estadoHabitacion = $value->estadoHabitacion($value->id);
+        }
+        return response()->json([
+            "status"=>true,
+            "data"=>$habitacion
+        ],200);
+    }
 }
