@@ -137,7 +137,7 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
                                         <div class="form-group select2-sm">
                                             <label for="" class="form-label">Estado de habitacion</label>
                                             <select class="form-select form-select-sm select2 select2-dropdown" name="estado_habitacion_id" required>
@@ -147,7 +147,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-3">
                                         <div class="form-group select2-sm">
                                             <label for="" class="form-label">Clientes</label>

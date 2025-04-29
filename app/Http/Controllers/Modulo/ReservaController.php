@@ -126,7 +126,7 @@ class ReservaController extends Controller
         $recepcion->usuario_id              = Auth::user()->id;
         $recepcion->cliente_id              = $cliente_id;
         $recepcion->medio_pago_id           = $request->medio_pago_id;
-        $recepcion->estado_habitacion_id    = $request->estado_habitacion_id;
+        $recepcion->estado_habitacion_id    = 2;
         $recepcion->hotel_id = Auth::user()->hotel_sesion;
         $recepcion->save();
 

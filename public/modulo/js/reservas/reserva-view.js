@@ -129,7 +129,10 @@ class ReservaView {
                 if (respuesta.status == true) {
                     opcion += '<option value="">Seleccione</option>';
                     $.each(respuesta.data, function (index, value) {
-                        opcion += '<option value="' + value.id + '">' + value.nombre + ' - '+ value.estadoHabitacion.nombre+ '</option>';
+                        if(value.estadoHabitacion.id==1){
+                            opcion += '<option value="' + value.id + '" >' + value.nombre + ' - '+ value.estadoHabitacion.nombre+ '</option>';
+                        }
+
                     });
                     $('#form-registro').find('[name="habitacion_id"]').html(opcion);
                     $('#form-registro').find('[name="habitacion_id"]').select2({

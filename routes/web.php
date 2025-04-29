@@ -54,6 +54,16 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('nuevo', [GalleryController::class, 'nuevo'])->name('nuevo');
     });
 
+    Route::name('punto-venta.')->prefix('punto-venta')->group(function () {
+        Route::name('vender-producto.')->prefix('punto-venta')->group(function () {
+            Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');
+            Route::get('venta', [RecepcionController::class, 'venta'])->name('venta');
+        });
+        Route::name('productos-servicios.')->prefix('productos-servicios')->group(function () {
+            Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');
+        });
+    });
+
     Route::name('configuraciones.')->prefix('configuraciones')->group(function () {
         Route::name('habitacion.')->prefix('habitacion')->group(function () {
             Route::get('lista', [HabitacionController::class, 'lista'])->name('lista');

@@ -43,6 +43,37 @@
 
                 </li>
 
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fe fe-slack"></i><span
+                            class="side-menu__label">Punto de venta</span><i
+                            class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="panel sidetab-menu">
+                            <div class="tab-menu-heading p-0 pb-2 border-0">
+                                <div class="tabs-menu ">
+                                    <!-- Tabs -->
+                                    <ul class="nav panel-tabs">
+                                        <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                        <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body tabs-menu-body p-0 border-0">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="side1">
+                                        <ul class="sidemenu-list">
+                                            <li class="side-menu-label1"><a href="javascript:void(0)">Punto de venta</a></li>
+                                            <li><a href="{{ route('configuraciones.habitacion.lista') }}" class="slide-item"> Vender producto</a></li>
+                                            <li><a href="{{ route('configuraciones.habitacion.lista') }}" class="slide-item"> Productos/Servicios</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
