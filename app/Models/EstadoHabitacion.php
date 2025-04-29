@@ -11,6 +11,6 @@ class EstadoHabitacion extends Model
     //
     use HasFactory, SoftDeletes;
     protected $table = 'estados_habitaciones';
-    protected $fillable = ['nombre','descripcion','icon','color','hotel_id','estado'];
+    protected $fillable = ['nombre','descripcion','icon','color','color_exadecimal','hotel_id','estado'];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

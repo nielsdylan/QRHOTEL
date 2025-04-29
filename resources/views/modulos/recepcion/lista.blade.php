@@ -14,6 +14,13 @@
         inset-inline-start: auto !important;
         float: left;
     }
+    .fa-bed-empty {
+        --fa: "\f8f9";
+        --fa--fa: "\f8f9\f8f9";
+
+    }
+    /* ----------------- */
+
 </style>
 @endsection
 

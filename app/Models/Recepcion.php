@@ -24,4 +24,9 @@ class Recepcion extends Model
     {
         return $this->hasOne(Cliente::class,'id','cliente_id');
     }
+    public function estadoHabitacion(): HasOne
+    {
+        return $this->hasOne(EstadoHabitacion::class,'id','estado_habitacion_id');
+    }
+
 }

@@ -34,16 +34,6 @@ class ReservaModel {
             data: { _token: this.token }
         });
     }
-    eliminar = (id) =>{
-        return $.ajax({
-            url: route('reserva.eliminar',{id:id}),
-            type: 'PUT',
-            dataType: "JSON",
-            // processData: false,
-            // contentType: false,
-            data: { _token: this.token }
-        });
-    }
 
     obtenerReserva = (id) =>{
         return $.ajax({
@@ -53,6 +43,16 @@ class ReservaModel {
             // processData: false,
             // contentType: false,
             data: { _token: this.token }
+        });
+    }
+    actualizarFechas = (recepcion_id, fecha_inicio, fecha_fin) =>{
+        return $.ajax({
+            url: route('reserva.actualizar-fechas'),
+            type: 'POST',
+            dataType: "JSON",
+            // processData: false,
+            // contentType: false,
+            data: { _token: this.token, recepcion_id:recepcion_id, fecha_inicio:fecha_inicio, fecha_fin:fecha_fin }
         });
     }
 }

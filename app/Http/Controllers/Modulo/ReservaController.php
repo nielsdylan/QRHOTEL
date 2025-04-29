@@ -40,17 +40,20 @@ class ReservaController extends Controller
             ->where('estado', 1)
             ->get();
 
-
+        // return response()->json([
+        //     'data' => $data,
+        // ], 200);
         $reservas = [];
         foreach ($data as $key => $value) {
+
             array_push($reservas, [
                 'id' => $value->id,
                 'start' => $value->fecha_entrada . 'T' . $value->hora_entrada,
                 'end' => $value->fecha_salida . 'T' . $value->hora_salida,
                 'title' => $value->habitacion->nombre,
                 'rendering'=> 'background',
-                'color'=> 'rgba(0,0,0,0.1)'
-                // 'color' => '#3788d8',
+                // 'color'=> 'rgba(0,0,0,0.1)'
+                'color' => $value->estadoHabitacion->color_exadecimal,
                 // 'textColor' => '#fff',
                 // 'url' => route('recepcion.registrar', ['id' => $value->id]),
             ]);
@@ -131,6 +134,24 @@ class ReservaController extends Controller
             'title' => "Éxito",
             'text' => 'Se guardó correctamente',
             'icon' => 'success',
+        ]);
+    }
+    public function actualizarFechas(Request $request) {
+        $recepcion = Recepcion::find($request->recepcion_id);
+        if ($recepcion) {
+            $recepcion->fecha_entrada   = $request->fecha_inicio;
+            $recepcion->fecha_salida    = $request->fecha_fin;
+            $recepcion->save();
+            return response()->json([
+                'title' => "Éxito",
+                'text' => 'Se actualizó correctamente',
+                'icon' => 'success',
+            ]);
+        }
+        return response()->json([
+            'title' => "Error",
+            'text' => 'No se encontró la reserva',
+            'icon' => 'error',
         ]);
     }
 }

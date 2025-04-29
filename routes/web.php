@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('lista-reservas', [ReservaController::class, 'listaReservas'])->name('lista-reservas');
         Route::get('obtener-reserva/{id}', [ReservaController::class, 'obtenerReserva'])->name('obtener-reserva');
         Route::post('guardar', [ReservaController::class, 'guardar'])->name('guardar');
+        Route::post('actualizar-fechas', [ReservaController::class, 'actualizarFechas'])->name('actualizar-fechas');
     });
 
     Route::name('recepcion.')->prefix('recepcion')->group(function () {

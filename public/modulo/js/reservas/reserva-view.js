@@ -28,6 +28,7 @@ class ReservaView {
 
 
             select: function({allDay, end, endStr, jsEvent, start, startStr, view}) {
+
                 $('#modal-registro').modal('show');
                 $('#form-registro')[0].reset();
                 $("#modal-registro").find('h6.modal-title').text('Nueva Reserva');
@@ -47,22 +48,15 @@ class ReservaView {
                 $('#form-registro').find('[name="habitacion_id"]').val('').trigger('change.select2');
 
                 $('#form-registro').find('[name="habitacion_id"]').select2('destroy');
-                model.habitacionEstados().then((respuesta) => {
-                    console.log(respuesta);
-                }).always(() => {
-                }).fail(() => {
-                    console.log('error-calendario');
-
-                });
+                actualizarHabitaciones();
             },
             eventClick: function({el, event, jsEvent, view}) {
                 $('#modal-registro').modal('show');
                 $('#form-registro')[0].reset();
                 $("#modal-registro").find('h6.modal-title').text('Editar Reserva');
                 // $('[name="id"]').val(event.id);
-
+                actualizarHabitaciones();
                 model.obtenerReserva(event.id).then((respuesta) => {
-                    console.log(respuesta);
                     $('#form-registro').find('[name="dni"]').val(respuesta.persona.dni);
                     $('#form-registro').find('[name="apellidos"]').val(respuesta.persona.apellidos);
                     $('#form-registro').find('[name="nombres"]').val(respuesta.persona.nombres);
@@ -97,18 +91,59 @@ class ReservaView {
                     $('#form-registro').find('[name="persona_id"]').val(respuesta.data.cliente.persona_id);
                     // $('#form-registro').find('[name="habitacion_id"]').val(respuesta.habitacion.id);
                     // Fullcalendario.refetchEvents();
+
                 }).always(() => {
                 }).fail(() => {
                     console.log('error-calendario');
 
                 });
             },
+            eventDrop: function(info) {
+                let recepcion_id = info.event.id;
+                let fecha_inicio = info.event.startStr;
+                fecha_inicio = fecha_inicio.split('T')[0];
+                let fecha_fin = info.event.endStr;
+                fecha_fin = fecha_fin.split('T')[0];
+
+                model.actualizarFechas(recepcion_id, fecha_inicio, fecha_fin).then((respuesta) => {
+
+                }).always(() => {
+                }).fail(() => {
+                    console.log('error-calendario');
+
+                });
+              },
             editable: true,
             dayMaxEvents: true, // allow "more" link when too many events
             events: route('reserva.lista-reservas'),
         });
         Fullcalendario.render();
         this.calendario = Fullcalendario;
+
+        /*
+        * * Actualiza el selector de habitaciones
+        */
+        function actualizarHabitaciones() {
+            let opcion = '';
+            model.habitacionEstados().then((respuesta) => {
+                if (respuesta.status == true) {
+                    opcion += '<option value="">Seleccione</option>';
+                    $.each(respuesta.data, function (index, value) {
+                        opcion += '<option value="' + value.id + '">' + value.nombre + ' - '+ value.estadoHabitacion.nombre+ '</option>';
+                    });
+                    $('#form-registro').find('[name="habitacion_id"]').html(opcion);
+                    $('#form-registro').find('[name="habitacion_id"]').select2({
+                        minimumResultsForSearch: Infinity,
+                        width: '100%'
+                    });
+
+                }
+            }).always(() => {
+            }).fail(() => {
+                console.log('error-calendario');
+
+            });
+        }
     }
 
     eventos = () => {
@@ -140,7 +175,7 @@ class ReservaView {
                 button.removeAttr('disabled')
                 button.find('i').removeClass('fa-spinner fa-spin')
                 button.find('i').addClass('fa-save');
-                // $('#modal-registro').modal('hide');
+                $('#modal-registro').modal('hide');
                 Fullcalendario.refetchEvents();
             }).always(() => {
             }).fail(() => {
@@ -205,62 +240,6 @@ class ReservaView {
             }).always(() => {
 
             }).fail(() => {
-
-            });
-        });
-        $('#tabla-data').on('click', 'a.editar',(e) => {
-            e.preventDefault();
-            let id = $(e.currentTarget).attr('data-id');
-            $('#modal-registro').modal('show');
-            this.model.editar(id).then((respuesta) => {
-                if(respuesta.status=="success"){
-
-
-                    $("#form-registro")[0].reset();
-                    $("#modal-registro").find('h5.modal-title').text('Editar Habitación');
-
-                    $('[name="id"]').val(respuesta.data.id);
-                    $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
-                    $('#form-registro').find('[name="descripcion"]').val(respuesta.data.descripcion)
-                    $('#form-registro').find('[name="precio"]').val(respuesta.data.precio)
-
-                    $('#form-registro').find('[name="nivel_id"]').val(respuesta.data.nivel_id).trigger('change.select2');
-                    $('#form-registro').find('[name="tarifa_id"]').val(respuesta.data.tarifa_id).trigger('change.select2');
-                    $('#form-registro').find('[name="categoria_id"]').val(respuesta.data.categoria_id).trigger('change.select2');
-
-                }
-
-            }).always(() => {
-
-            }).fail(() => {
-
-            });
-        });
-        $('#tabla-data').on('click', 'a.eliminar',(e) => {
-            e.preventDefault();
-            $('#alert-eliminar').modal('show');
-            let id = $(e.currentTarget).attr('data-id');
-            let model = this.model;
-            // console.log(id);
-            swal({
-                title: "Eliminar",
-                text: "Esta seguro de eliminar el registro.",
-                type: "info",
-                showLoaderOnConfirm: true,
-                confirmButtonText: "Si, aceptar",
-                cancelButtonText: "No, cancelar",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                confirmButtonClass: "btn-danger",
-            }, function () {
-                model.eliminar(id).then((respuesta) => {
-                    swal(respuesta.title, respuesta.text, respuesta.icon)
-                    $('#tabla-data').DataTable().ajax.reload(null, false);
-                }).always(() => {
-
-                }).fail(() => {
-
-                });
 
             });
         });
