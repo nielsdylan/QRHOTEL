@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('habitaciones', function (Blueprint $table) {
+        Schema::create('productos_servicios', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo');
             $table->string('nombre');
-            $table->float('precio',53);
             $table->string('descripcion')->nullable();
-            $table->integer('nivel_id');
-            $table->integer('tarifa_id');
-            $table->integer('categoria_id');
+            $table->float('precio',53);
+            $table->float('cantidad',53)->nullable();
+            $table->boolean('producto')->nullable();
+            $table->boolean('servicio')->nullable();
             $table->integer('hotel_id');
             $table->string('estado')->default(1);
             $table->timestamps();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('habitaciones');
+        Schema::dropIfExists('productos_servicios');
     }
 };

@@ -8,6 +8,8 @@ use App\Http\Controllers\Modulo\Configuraciones\HotelController;
 use App\Http\Controllers\Modulo\Configuraciones\NivelController;
 use App\Http\Controllers\Modulo\Configuraciones\UsuarioController;
 use App\Http\Controllers\Modulo\HomeController;
+use App\Http\Controllers\Modulo\PuntoVenta\ProductoServicioController;
+use App\Http\Controllers\Modulo\PuntoVenta\VenderProductoController;
 use App\Http\Controllers\Modulo\RecepcionController;
 use App\Http\Controllers\Modulo\ReservaController;
 use Illuminate\Support\Facades\Route;
@@ -56,11 +58,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::name('punto-venta.')->prefix('punto-venta')->group(function () {
         Route::name('vender-producto.')->prefix('punto-venta')->group(function () {
-            Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');
-            Route::get('venta', [RecepcionController::class, 'venta'])->name('venta');
+            Route::get('lista', [VenderProductoController::class, 'lista'])->name('lista');
+            Route::get('venta', [VenderProductoController::class, 'venta'])->name('venta');
         });
         Route::name('productos-servicios.')->prefix('productos-servicios')->group(function () {
-            Route::get('lista', [RecepcionController::class, 'lista'])->name('lista');
+            Route::get('lista', [ProductoServicioController::class, 'lista'])->name('lista');
+            Route::get('listar', [ProductoServicioController::class, 'listar'])->name('listar');
         });
     });
 

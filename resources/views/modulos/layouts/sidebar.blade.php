@@ -65,8 +65,8 @@
                                     <div class="tab-pane active" id="side1">
                                         <ul class="sidemenu-list">
                                             <li class="side-menu-label1"><a href="javascript:void(0)">Punto de venta</a></li>
-                                            <li><a href="{{ route('configuraciones.habitacion.lista') }}" class="slide-item"> Vender producto</a></li>
-                                            <li><a href="{{ route('configuraciones.habitacion.lista') }}" class="slide-item"> Productos/Servicios</a></li>
+                                            <li><a href="{{ route('punto-venta.vender-producto.lista') }}" class="slide-item"> Vender producto</a></li>
+                                            <li><a href="{{ route('punto-venta.productos-servicios.lista') }}" class="slide-item"> Productos/Servicios</a></li>
                                         </ul>
                                     </div>
                                 </div>

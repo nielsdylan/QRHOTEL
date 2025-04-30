@@ -11,6 +11,7 @@ use Database\Seeders\Job\HotelSeeder;
 use Database\Seeders\Job\MedioPagoSeeder;
 use Database\Seeders\Job\NivelSeeder;
 use Database\Seeders\Job\PersonaSeeder;
+use Database\Seeders\Job\ProductoServicioSeeder;
 use Database\Seeders\Job\PropietarioSeeder;
 use Database\Seeders\Job\RecursosHumanosSeeder;
 use Database\Seeders\Job\TarifaSeeder;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
             HabitacionSeeder::class,
             EstadoHabitacionSeeder::class,
             MedioPagoSeeder::class,
+            ProductoServicioSeeder::class,
         ]);
     }
 }
