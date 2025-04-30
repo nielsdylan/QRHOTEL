@@ -21,8 +21,8 @@ class ProductoServicioController extends Controller
     {
         $data = ProductoServicio::where('hotel_id', Auth::user()->hotel_sesion)->get();
         return DataTables::of($data)
-            ->addColumn('producto_servicio', function ($data) {
-                $string = ($data->producto == 't'? 'Producto': 'Servicio');
+            ->addColumn('tipo', function ($data) {
+                $string = ($data->producto == 1? 'Producto': 'Servicio');
                 return $string;
             })
             ->addColumn('estado_color', function ($data) {
@@ -35,12 +35,68 @@ class ProductoServicioController extends Controller
             ->addColumn('accion', function ($data) {
                 return
                     '<div class="flex align-items-center list-user-action" >
-                        <a href="#" class="btn btn-icon btn-sm editar text-dark"  data-id="' . $data->id . '" data-persona="' . $data->persona_id . '"><i class="fa fa-pencil"></i>
+                        <a href="#" class="btn btn-icon btn-sm editar text-dark"  data-id="' . $data->id . '" ><i class="fa fa-pencil"></i>
                         </a>
-                        <a href="#" class="btn btn-icon btn-sm eliminar text-dark"  data-id="' . $data->id . '" data-persona="' . $data->persona_id . '"><i class="fa fa-trash"></i>
+                        <a href="#" class="btn btn-icon btn-sm eliminar text-dark"  data-id="' . $data->id . '"><i class="fa fa-trash"></i>
                         </a>
                     </div>';
             })->rawColumns(['accion', 'estado_color'])->make(true);
 
+    }
+    public function guardar(Request $request)
+    {
+        $total_registro = ProductoServicio::where('hotel_id', Auth::user()->hotel_sesion)->withTrashed()->count();
+        $codigo = $this->generarCodigo($total_registro + 1);
+        // return $codigo;
+        $data = ProductoServicio::firstOrNew(
+            ['id' => $request->id],
+        );
+        if((int)$request->id==0){
+            $data->codigo = $codigo;
+        }
+
+        $data->nombre = $request->nombre;
+        $data->descripcion = $request->descripcion;
+        $data->precio = $request->precio;
+        $data->cantidad = $request->cantidad;
+        if($request->tipo == 'producto'){
+            $data->producto = 1;
+            $data->servicio = 0;
+        }else{
+            $data->servicio = 1;
+            $data->producto = 0;
+        }
+
+
+        $data->hotel_id = Auth::user()->hotel_sesion;
+        $data->save();
+        return response()->json([
+            "status"=>true,
+            "titulo"=> "Éxito",
+            "texto"=> "Se registro con éxito",
+            "icon"=> "success",
+        ],200);
+        return response()->json(['success' => true, 'message' => 'Guardado correctamente']);
+    }
+    public function editar($id)
+    {
+        $data = ProductoServicio::find($id);
+        return response()->json(['success' => true, 'data' => $data]);
+    }
+    public function eliminar($id)
+    {
+        $data = ProductoServicio::find($id);
+        $data->delete();
+        return response()->json([
+            "status"=>true,
+            "title"=> "Éxito",
+            "text"=> "Se elimino con éxito",
+            "icon"=> "success",
+        ]);
+    }
+    public function generarCodigo($numero)
+    {
+        $numero_formateado = str_pad($numero, 4, "0", STR_PAD_LEFT);
+        return $numero_formateado;
     }
 }

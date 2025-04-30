@@ -57,13 +57,16 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::name('punto-venta.')->prefix('punto-venta')->group(function () {
-        Route::name('vender-producto.')->prefix('punto-venta')->group(function () {
+        Route::name('vender-producto.')->prefix('vender-producto')->group(function () {
             Route::get('lista', [VenderProductoController::class, 'lista'])->name('lista');
             Route::get('venta', [VenderProductoController::class, 'venta'])->name('venta');
         });
         Route::name('productos-servicios.')->prefix('productos-servicios')->group(function () {
             Route::get('lista', [ProductoServicioController::class, 'lista'])->name('lista');
-            Route::get('listar', [ProductoServicioController::class, 'listar'])->name('listar');
+            Route::post('listar', [ProductoServicioController::class, 'listar'])->name('listar');
+            Route::get('editar/{id}', [ProductoServicioController::class, 'editar'])->name('editar');
+            Route::post('guardar', [ProductoServicioController::class, 'guardar'])->name('guardar');
+            Route::put('eliminar/{id}', [ProductoServicioController::class, 'eliminar'])->name('eliminar');
         });
     });
 

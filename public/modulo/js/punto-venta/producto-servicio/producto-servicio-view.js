@@ -28,7 +28,7 @@ class ProductoServicioView {
                         // vistaCrear();
                         $('#modal-registro').modal('show');
                         $("#form-registro")[0].reset();
-                        $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nueva Habitación');
+                        $('#modal-registro').find('.modal-header').find('h6.modal-title').text('Nuevo Producto/Servicio');
                         // $(selector).attr(attributeName);
                         $('[name="id"]').val(0);
 
@@ -83,7 +83,7 @@ class ProductoServicioView {
             },
             order: [[0, 'desc']],
             ajax: {
-                url: route('configuraciones.habitacion.listar'),
+                url: route('punto-venta.productos-servicios.listar'),
                 method: 'POST',
                 // headers: {'X-CSRF-TOKEN': token},
                 dataType: "JSON",
@@ -95,8 +95,7 @@ class ProductoServicioView {
                 {data: 'codigo', className: 'text-center'},
                 {data: 'nombre', className: 'text-center'},
                 {data: 'precio', className: 'text-center'},
-                {data: 'nivel', className: 'text-center'},
-                {data: 'categoria', className: 'text-center'},
+                {data: 'tipo', className: 'text-center'},
                 {data: 'estado_color', className: 'text-center'},
                 {data: 'accion', className: 'text-center'},
             ]
@@ -138,7 +137,7 @@ class ProductoServicioView {
                     swal({
                         title: respuesta.titulo,
                         text:respuesta.texto,
-                        type: respuesta.titpo
+                        type: respuesta.icon
                     });
                     // this.listar.$tabla
                     $('#tabla-data').DataTable().ajax.reload(null, false);
@@ -162,7 +161,7 @@ class ProductoServicioView {
             let id = $(e.currentTarget).attr('data-id');
             $('#modal-registro').modal('show');
             this.model.editar(id).then((respuesta) => {
-                if(respuesta.status=="success"){
+                if(respuesta.success==true){
 
 
                     $("#form-registro")[0].reset();
@@ -172,10 +171,15 @@ class ProductoServicioView {
                     $('#form-registro').find('[name="nombre"]').val(respuesta.data.nombre)
                     $('#form-registro').find('[name="descripcion"]').val(respuesta.data.descripcion)
                     $('#form-registro').find('[name="precio"]').val(respuesta.data.precio)
+                    $('#form-registro').find('[name="cantidad"]').val(respuesta.data.cantidad)
+                    $('#form-registro').find('[name="tipo"]').removeAttr('checked');
+                    if(respuesta.data.producto == 1){
+                        $('#form-registro').find('[name="tipo"][value="producto"]').attr('checked',true);
 
-                    $('#form-registro').find('[name="nivel_id"]').val(respuesta.data.nivel_id).trigger('change.select2');
-                    $('#form-registro').find('[name="tarifa_id"]').val(respuesta.data.tarifa_id).trigger('change.select2');
-                    $('#form-registro').find('[name="categoria_id"]').val(respuesta.data.categoria_id).trigger('change.select2');
+                    }else{
+                        $('#form-registro').find('[name="tipo"][value="servicio"]').attr('checked',true);
+                    }
+
 
                 }
 

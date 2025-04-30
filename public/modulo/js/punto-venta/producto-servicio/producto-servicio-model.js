@@ -6,7 +6,7 @@ class ProductoServicioModel {
 
     guardar = (data) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.guardar'),
+            url: route('punto-venta.productos-servicios.guardar'),
             type: 'POST',
             dataType: "JSON",
             // processData: false,
@@ -16,7 +16,7 @@ class ProductoServicioModel {
     }
     editar = (id) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.editar',{id:id}),
+            url: route('punto-venta.productos-servicios.editar',{id:id}),
             type: 'GET',
             dataType: "JSON",
             // processData: false,
@@ -26,7 +26,7 @@ class ProductoServicioModel {
     }
     eliminar = (id) =>{
         return $.ajax({
-            url: route('configuraciones.habitacion.eliminar',{id:id}),
+            url: route('punto-venta.productos-servicios.eliminar',{id:id}),
             type: 'PUT',
             dataType: "JSON",
             // processData: false,

@@ -61,6 +61,7 @@
                                             <th class="wd-15p border-bottom-0">Código</th>
                                             <th class="wd-15p border-bottom-0">Nombres</th>
                                             <th class="wd-20p border-bottom-0">Precio</th>
+                                            <th class="wd-10p border-bottom-0">Tipo</th>
                                             <th class="wd-10p border-bottom-0">Estado</th>
 
                                             <th class="wd-25p border-bottom-0">Acción</th>
@@ -95,7 +96,54 @@
                 <input type="hidden" name="id" value="0">
                 <div class="modal-body">
 
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Nombre</label>
+                                <input type="text" name="nombre" class="form-control form-control-sm" placeholder="" aria-describedby="helpId" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Precio</label>
+                                    <input type="number" name="precio" class="form-control form-control-sm" placeholder="" step="0.01" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Cantidad</label>
+                                <input type="number" name="cantidad" class="form-control form-control-sm" placeholder="" step="0.01" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-label">Tipo</div>
+                                <div class="custom-controls-stacked">
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="tipo" value="producto" checked>
+                                        <span class="custom-control-label">Producto</span>
+                                    </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" name="tipo" value="servicio">
+                                        <span class="custom-control-label">Servicio</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Descripcion</label>
+                                {{-- <input type="text" name="descripcion" class="form-control form-control-sm" placeholder="" required /> --}}
+                                <textarea class="form-control form-control-sm" name="descripcion" id="descripcion" cols="3" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Guardar</button>
