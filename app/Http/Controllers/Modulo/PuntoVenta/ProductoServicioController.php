@@ -99,4 +99,33 @@ class ProductoServicioController extends Controller
         $numero_formateado = str_pad($numero, 4, "0", STR_PAD_LEFT);
         return $numero_formateado;
     }
+    public  function listarProductoServicio()
+    {
+        $data = ProductoServicio::where('hotel_id', Auth::user()->hotel_sesion)->get();
+        return DataTables::of($data)
+            ->addColumn('tipo', function ($data) {
+                $string = ($data->producto == 1? 'Producto': 'Servicio');
+                return $string;
+            })
+            ->addColumn('estado_color', function ($data) {
+                $color = ($data->estado == 1 ? 'success' : 'danger');
+                $texto = ($data->estado == 1 ? 'Activo' : 'Inactivo');
+                return
+                    '<span class="badge bg-' . $color . ' badge-sm  me-1 mb-1 mt-1">' . $texto . '
+                    </span>';
+            })
+            ->addColumn('accion', function ($data) {
+                return
+                    '<div class="flex align-items-center list-user-action" >
+                        <a href="#" class="btn btn-success btn-sm seleccionar"  data-id="' . $data->id . '" >Seleccionar
+                        </a>
+                    </div>';
+            })->rawColumns(['accion', 'estado_color'])->make(true);
+
+    }
+    public function obtener($id)
+    {
+        $data = ProductoServicio::find($id);
+        return response()->json(['success' => true, 'data' => $data]);
+    }
 }

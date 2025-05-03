@@ -68,6 +68,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('editar/{id}', [ProductoServicioController::class, 'editar'])->name('editar');
             Route::post('guardar', [ProductoServicioController::class, 'guardar'])->name('guardar');
             Route::put('eliminar/{id}', [ProductoServicioController::class, 'eliminar'])->name('eliminar');
+
+            Route::get('obtener/{id}', [ProductoServicioController::class, 'obtener'])->name('obtener');
+            Route::post('listar-producto-servicio', [ProductoServicioController::class, 'listarProductoServicio'])->name('listar-producto-servicio');
         });
     });
 

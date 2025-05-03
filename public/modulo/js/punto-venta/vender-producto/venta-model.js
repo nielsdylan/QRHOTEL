@@ -4,19 +4,9 @@ class VentaModel {
         this.token = token;
     }
 
-    guardar = (data) =>{
+    obtener = (id) =>{
         return $.ajax({
-            url: route('punto-venta.vender-producto.guardar'),
-            type: 'POST',
-            dataType: "JSON",
-            // processData: false,
-            // contentType: false,
-            data: data
-        });
-    }
-    editar = (id) =>{
-        return $.ajax({
-            url: route('punto-venta.vender-producto.editar',{id:id}),
+            url: route('punto-venta.productos-servicios.obtener',{id:id}),
             type: 'GET',
             dataType: "JSON",
             // processData: false,
@@ -24,14 +14,5 @@ class VentaModel {
             data: { _token: this.token }
         });
     }
-    eliminar = (id) =>{
-        return $.ajax({
-            url: route('punto-venta.vender-producto.eliminar',{id:id}),
-            type: 'PUT',
-            dataType: "JSON",
-            // processData: false,
-            // contentType: false,
-            data: { _token: this.token }
-        });
-    }
+
 }

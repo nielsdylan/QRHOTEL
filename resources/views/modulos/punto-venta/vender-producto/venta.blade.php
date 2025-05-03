@@ -47,11 +47,11 @@
             <!-- ROW-1 OPEN -->
             <!-- Row -->
             <div class="row ">
-                <div class="col-md-12">
+                <div class="col-md-8">
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Gestion de Venta</h3>
+                            <h3 class="card-title">Lista de Productos / Servicio</h3>
                         </div>
                         <form action="">
                             <div class="card-body">
@@ -65,22 +65,23 @@
                                     </div>
                                 </div> --}}
                                 <div class="row">
+
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table border text-nowrap text-md-nowrap table-bordered mb-0 table-hover " >
+                                            <table class="table border text-nowrap text-md-nowrap table-bordered mb-0 table-hover " id="tabla-venta">
                                                 <thead>
                                                     <tr>
                                                         {{-- <th >#</th> --}}
-                                                        <th >Producto / Servicio</th>
-                                                        <th >Precio</th>
-                                                        <th >Cantidad</th>
-                                                        <th >Sub Total</th>
-                                                        <th >Pagado</th>
-                                                        <th >Acción <button type="button" class="btn btn-info btn-sm agregar-producto"><i class="fa fa-plus"></i></button></th>
+                                                        <th class="text-center">Producto / Servicio</th>
+                                                        <th class="text-center">Precio</th>
+                                                        <th class="text-center" style="width: 10%;">Cantidad</th>
+                                                        <th class="text-center">Sub Total</th>
+                                                        <th class="text-center" >Pagado</th>
+                                                        <th class="text-center">Acción <button type="button" class="btn btn-info btn-sm agregar-producto"><i class="fa fa-plus"></i></button></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
+                                                    {{-- <tr>
                                                         <td>
                                                             <select class="form-control select2" id="producto" name="producto">
                                                                 <option value="">Seleccione un producto</option>
@@ -91,23 +92,56 @@
                                                         <td><input type="text" class="form-control" id="sub_total" name="sub_total" readonly></td>
                                                         <td><input type="text" class="form-control" id="pagado" name="pagado"></td>
                                                         <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button></td>
-                                                    </tr>
+                                                    </tr> --}}
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="{{ route('punto-venta.vender-producto.lista') }}" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Volver</a>
-                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Guardar</button>
 
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Resumen de Venta</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table border text-nowrap text-md-nowrap table-bordered mb-0 table-hover ">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td><input type="text" class="form-control" id="total" name="total" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Descuento</td>
+                                                    <td><input type="text" class="form-control" id="descuento" name="descuento"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total a Pagar</td>
+                                                    <td><input type="text" class="form-control" id="total_pagar" name="total_pagar" readonly></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
+
                             </div>
-                        </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a href="{{ route('punto-venta.vender-producto.lista') }}" class="btn btn-danger btn-sm"><i class="fa fa-arrow-left"></i> Volver</a>
+                                    <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> Guardar</button>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,7 +162,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table table-bordered text-nowrap border-bottom" id="tabla-producto-servicio">
+                            <table class="table table-bordered text-nowrap border-bottom table-hover" id="tabla-producto-servicio">
                                 <thead>
                                     <tr>
                                         <th class="wd-15p border-bottom-0">#</th>
@@ -136,7 +170,7 @@
                                         <th class="wd-15p border-bottom-0">Nombres</th>
                                         <th class="wd-20p border-bottom-0">Precio</th>
                                         <th class="wd-10p border-bottom-0">Tipo</th>
-                                        <th class="wd-10p border-bottom-0">Estado</th>
+                                        {{-- <th class="wd-10p border-bottom-0">Estado</th> --}}
 
                                         <th class="wd-25p border-bottom-0">Acción</th>
                                     </tr>
