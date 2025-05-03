@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('hotel_id');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

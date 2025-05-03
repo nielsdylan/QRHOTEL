@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('icon');
             $table->string('color');
             $table->string('color_exadecimal');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->integer('hotel_id');
             $table->timestamps();
             $table->softDeletes();

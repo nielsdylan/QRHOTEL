@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('tarifa_id');
             $table->integer('categoria_id');
             $table->integer('hotel_id');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

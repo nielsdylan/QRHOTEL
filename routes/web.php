@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('punto-venta.')->prefix('punto-venta')->group(function () {
         Route::name('vender-producto.')->prefix('vender-producto')->group(function () {
             Route::get('lista', [VenderProductoController::class, 'lista'])->name('lista');
+            Route::post('listar', [VenderProductoController::class, 'listar'])->name('listar');
             Route::get('venta', [VenderProductoController::class, 'venta'])->name('venta');
         });
         Route::name('productos-servicios.')->prefix('productos-servicios')->group(function () {

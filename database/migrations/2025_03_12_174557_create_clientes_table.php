@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->integer('persona_id');
             $table->integer('hotel_id');
             $table->timestamps();
