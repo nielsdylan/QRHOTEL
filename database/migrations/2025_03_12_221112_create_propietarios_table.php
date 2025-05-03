@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('propietarios', function (Blueprint $table) {
             $table->id();
             $table->string('ruc');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->integer('usuario_id');
             $table->timestamps();
             $table->softDeletes();

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('producto')->nullable();
             $table->boolean('servicio')->nullable();
             $table->integer('hotel_id');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

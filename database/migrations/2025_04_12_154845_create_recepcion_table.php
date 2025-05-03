@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('medio_pago_id');
             $table->integer('estado_habitacion_id');
             $table->integer('hotel_id');
-            $table->string('estado')->default(1);
+            $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

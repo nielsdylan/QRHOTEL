@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hoteles', function (Blueprint $table) {
+        Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->string('razon_social');
-            $table->string('ruc');
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('whatsapp');
-            $table->string('logo');
-            $table->string('instagram');
-            $table->string('facebook');
-            $table->integer('propietario_id');
+            $table->string('codigo')->nullable();
+            $table->integer('recepcion_id')->nullable();
+            // $table->integer('producto_servicio_id')->nullable();
+            $table->integer('pagado')->default(1);
+            $table->float('sub_total',53);
+            $table->float('total',53);
+            $table->integer('hotel_id');
+            $table->integer('usuario_id');
             $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hoteles');
+        Schema::dropIfExists('ventas');
     }
 };
