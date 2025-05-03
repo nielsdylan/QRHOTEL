@@ -82,25 +82,25 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Fecha entrada</label>
-                                            <input type="date" name="fecha_entrada" class="form-control form-control-sm" placeholder="" value="{{ $recepcion ? $recepcion->fecha_entrada : '' }}" required />
+                                            <input type="date" name="fecha_entrada" class="form-control form-control-sm" placeholder="" value="{{ $recepcion ? $recepcion->fecha_entrada : date('Y-m-d') }}" required />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Hora entrada</label>
-                                            <input type="time" name="hora_entrada" class="form-control form-control-sm" placeholder="" value="{{ $recepcion ? $recepcion->hora_entrada : '' }}" required />
+                                            <input type="time" name="hora_entrada" class="form-control form-control-sm" placeholder="" value="{{ $recepcion ? $recepcion->hora_entrada : date('H:i') }}" required />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Fecha salida</label>
-                                            <input type="date" name="fecha_salida" class="form-control form-control-sm" value="{{ $recepcion ? $recepcion->fecha_salida : '' }}" placeholder="" required />
+                                            <input type="date" name="fecha_salida" class="form-control form-control-sm" value="{{ $recepcion ? $recepcion->fecha_salida : date("Y-m-d", strtotime(date('Y-m-d') . " +1 days")) }}" placeholder="" required />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="" class="form-label">Hora salida</label>
-                                            <input type="time" name="hora_salida" class="form-control form-control-sm" value="{{ $recepcion ? $recepcion->hora_salida : '' }}" placeholder="" required />
+                                            <input type="time" name="hora_salida" class="form-control form-control-sm" value="{{ $recepcion ? $recepcion->hora_salida : date('H:i') }}" placeholder="" required />
                                         </div>
                                     </div>
                                 </div>
