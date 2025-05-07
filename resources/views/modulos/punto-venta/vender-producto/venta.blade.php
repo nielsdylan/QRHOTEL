@@ -65,6 +65,16 @@
                                     </div>
                                 </div> --}}
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-sm" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                <button class="btn btn-light btn-sm" type="button" id="button-addon2"><i class="fa fa-search"></i> Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
 
                                     <div class="col-md-12">
                                         <div class="table-responsive">
@@ -112,19 +122,23 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="table border text-nowrap text-md-nowrap table-bordered mb-0 table-hover ">
+                                        <table class="table border text-nowrap text-md-nowrap table-bordered mb-0 table-hover " id="tabla-resumen-venta">
                                             <tbody>
-                                                <tr>
+                                                {{-- <tr data-section="sub-total">
+                                                    <td>Sub Total</td>
+                                                    <td>S/.<span data-section="span-sub-total">0</span></td>
+                                                </tr> --}}
+                                                <tr data-section="habitacion" class="d-none">
+                                                    <td>Precio Habitación</td>
+                                                    <td>S/.<span data-section="span-habitacion">0</span></td>
+                                                </tr>
+                                                <tr data-section="total">
                                                     <td>Total</td>
-                                                    <td><input type="text" class="form-control" id="total" name="total" readonly></td>
+                                                    <td>S/.<span data-section="span-total">0</span></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Descuento</td>
-                                                    <td><input type="text" class="form-control" id="descuento" name="descuento"></td>
-                                                </tr>
-                                                <tr>
+                                                <tr data-section="total-pagar">
                                                     <td>Total a Pagar</td>
-                                                    <td><input type="text" class="form-control" id="total_pagar" name="total_pagar" readonly></td>
+                                                    <td>S/.<span data-section="span-total-pagar">0</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -159,6 +173,11 @@
                 <h6 class="modal-title">Lista de </h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
+                <div class="row pb-2">
+                    <div class="col-md-12" data-section="alerta">
+
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">

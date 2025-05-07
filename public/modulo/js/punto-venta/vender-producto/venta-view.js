@@ -217,6 +217,7 @@ class VentaView {
         $('.agregar-producto').click((e) => {
             e.preventDefault();
             $('#modal-producto-servicio').modal('show');
+            $('#modal-producto-servicio').find('.modal-body').find('[data-section="alerta"]').html('');
             this.listarProductoServicio();
         });
         /*
@@ -228,47 +229,61 @@ class VentaView {
             e.preventDefault();
             let id = $(e.currentTarget).attr('data-id');
             let html = '';
-            this.model.obtener(id).then((respuesta) => {
-                // console.log(respuesta);
-                html = `
-                    <tr key="`+respuesta.data.id+`">
-                        <td>
-                            <p class="font-w600 mb-1">`+respuesta.data.codigo+`</p>
-                            <div class="text-muted">
-                                <div class="text-muted">`+respuesta.data.descripcion+`</div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <span >`+respuesta.data.precio+` </span>
-                            <span class="d-none" id="venta-precio">`+respuesta.data.precio+`</span>
-                        </td>
-                        <td class="text-center">
-                            <input type="number" data-input="venta" name="venta_cantidad[`+respuesta.data.id+`][]" class="form-control form-control-sm text-center" placeholder="" value="1.00" step="0.01" data-id="`+respuesta.data.id+`" />
-                        </td>
-                        <td class="text-center">
-                            <span id="venta-sub-total">`+respuesta.data.precio+`</span>
-                        </td>
-                        <td class="text-center">
-                            <div class="form-group">
-                                <label class="custom-control custom-checkbox mb-0">
-                                    <input type="checkbox" class="custom-control-input" name="pago[`+respuesta.data.id+`][]" value="true">
-                                    <span class="custom-control-label">Pagado</span>
-                                </label>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-sm eliminar" data-id="`+respuesta.data.id+`"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>
+
+            if($('#tabla-venta').find('tbody').find('tr[key="'+id+'"]').length > 0){
+                let alerta = '';
+                alerta = `
+                <div class="alert alert-danger" role="alert" >
+                    <p class="">El item ya se encuentra seleccionado, agrege otro producto/servicio</p>
+                </div>
                 `;
-                $('#tabla-venta').find('tbody').append(html);
-                $('#modal-producto-servicio').modal('hide');
+                $('#modal-producto-servicio').find('.modal-body').find('[data-section="alerta"]').html(alerta);
+            }else{
+                this.model.obtener(id).then((respuesta) => {
+                    // console.log(respuesta);
+                    html = `
+                        <tr key="`+respuesta.data.id+`">
+                            <td>
+                                <input type="hidden" name="producto_servicio_id[]" value="`+respuesta.data.id+`"/>
+                                <p class="font-w600 mb-1">`+respuesta.data.codigo+`</p>
+                                <div class="text-muted">
+                                    <div class="text-muted">`+respuesta.data.descripcion+`</div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span >`+respuesta.data.precio+` </span>
+                                <span class="d-none" data-section="span-venta-precio">`+respuesta.data.precio+`</span>
+                            </td>
+                            <td class="text-center">
+                                <input type="number" data-input="venta" name="venta_cantidad[`+respuesta.data.id+`][]" class="form-control form-control-sm text-center" placeholder="" value="1.00" step="0.01" data-id="`+respuesta.data.id+`" />
+                            </td>
+                            <td class="text-center">
+                                <span data-section="span-venta-sub-total">`+(respuesta.data.precio).toFixed(2)+`</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-group">
+                                    <label class="custom-control custom-checkbox mb-0">
+                                        <input type="checkbox" class="custom-control-input" name="pago[`+respuesta.data.id+`][]" value="true">
+                                        <span class="custom-control-label">Pagado</span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger btn-sm eliminar" data-id="`+respuesta.data.id+`"><i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                    $('#tabla-venta').find('tbody').append(html);
+                    $('#modal-producto-servicio').modal('hide');
+                    calcularTotal();
+                }).always(() => {
 
-            }).always(() => {
+                }).fail(() => {
 
-            }).fail(() => {
+                });
+            }
 
-            });
+
         });
         /*
         * Funcion para eliminar un producto de la tabla venta
@@ -283,7 +298,7 @@ class VentaView {
         $('#tabla-venta').on('change', 'input[data-input="venta"]',(e) => {
             let valor = $(e.currentTarget).val();
             let id = $(e.currentTarget).attr('data-id');
-            let precio = $('#tabla-venta').find('tbody').find('tr[key="'+id+'"]').find('span#venta-precio').text();
+            let precio = parseFloat($('#tabla-venta').find('tbody').find('tr[key="'+id+'"]').find('span[data-section="span-venta-precio"]').text());
             let sub_total = 0;
             if(valor<=0){
                 $(e.currentTarget).val(1);
@@ -291,13 +306,34 @@ class VentaView {
 
             }
             sub_total = valor*precio;
+            $('#tabla-venta').find('tbody').find('tr[key="'+id+'"]').find('span[data-section="span-venta-sub-total"]').text(sub_total.toFixed(2));
 
-            $('#tabla-venta').find('tbody').find('tr[key="'+id+'"]').find('span#venta-sub-total').text(sub_total.toFixed(2));
-            console.log($(e.currentTarget).val());
-
+            calcularTotal();
         });
+        /*
+        * Funcion para sumar los totales de la tabla venta
+        */
+        function calcularTotal(){
+            let total = 0;
+            let habitacio = parseFloat($('#tabla-resumen-venta').find('tr[data-section="habitacion"]').find('span[data-section="span-habitacion"]').text());
+            // parseFloat(habitacio);
+            $('#tabla-venta').find('tbody').find('tr').each(function(index, element){
+                let sub_total = $(element).find('span[data-section="span-venta-sub-total"]').text();
+                total += parseFloat(sub_total);
+            });
+
+            // $('#tabla-resumen-venta').find('tr[data-section="sub-total"]').find('span[data-section="span-sub-total"]').text(total.toFixed(2));
+
+            $('#tabla-resumen-venta').find('tr[data-section="total"]').find('span[data-section="span-total"]').text(total.toFixed(2));
+            console.log(total);
+            // $('#total').text(total.toFixed(2));
+        }
 
     }
+    /*
+    * Funcion para listar los productos y servicios
+    * Se utiliza el plugin datatables para mostrar los datos
+    */
     listarProductoServicio = () => {
         const productoServicioTB = $('#tabla-producto-servicio').DataTable({
             destroy: true,
