@@ -75,6 +75,41 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label"> Select2 with search box</label>
+                                            <select class="form-control select2-show-search form-select" data-placeholder="Choose one" id="select-id">
+                                                <option label="Choose one"></option>
+                                                <option value="AZ">Arizona</option>
+                                                <option value="CO">Colorado</option>
+                                                <option value="ID">Idaho</option>
+                                                <option value="MT">Montana</option>
+                                                <option value="NE">Nebraska</option>
+                                                <option value="NM">New Mexico</option>
+                                                <option value="ND">North Dakota</option>
+                                                <option value="UT">Utah</option>
+                                                <option value="WY">Wyoming</option>
+                                                <option value="AL">Alabama</option>
+                                                <option value="AR">Arkansas</option>
+                                                <option value="IL">Illinois</option>
+                                                <option value="IA">Iowa</option>
+                                                <option value="KS">Kansas</option>
+                                                <option value="KY">Kentucky</option>
+                                                <option value="LA">Louisiana</option>
+                                                <option value="MN">Minnesota</option>
+                                                <option value="MS">Mississippi</option>
+                                                <option value="MO">Missouri</option>
+                                                <option value="OK">Oklahoma</option>
+                                                <option value="SD">South Dakota</option>
+                                                <option value="TX">Texas</option>
+                                                <option value="TN">Tennessee</option>
+                                                <option value="WI">Wisconsin</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
 
                                     <div class="col-md-12">
                                         <div class="table-responsive">
@@ -212,8 +247,7 @@
 @endsection
 
 @section('script')
-<!-- INTERNAL SELECT2 JS -->
-<script src="{{ asset('template/plugins/select2/select2.full.min.js') }}"></script>
+
 
 <!-- DATA TABLE JS-->
 <script src="{{ asset('template/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
@@ -234,6 +268,17 @@
 <script src="{{ asset('modulo/js/punto-venta/vender-producto/venta-view.js') }}"></script>
 
 <script>
+    // $('#selectmultiple').select2({
+    //     minimumResultsForSearch: '',
+    //     width: '100%'
+    // });
+
+    // $(document).ready(function () {
+    //     $('.select2-show-search').select2({
+    //         minimumResultsForSearch: '',
+    //         width: '100%'
+    //     });
+    // });
     const view = new VentaView(new VentaModel(token));
     // view.listar();
     view.eventosVenta();

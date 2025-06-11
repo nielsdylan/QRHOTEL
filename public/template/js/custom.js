@@ -112,7 +112,7 @@
         return new bootstrap.Popover(popoverTriggerEl)
     })
 
-    // BY DEFAULT, BOOTSTRAP DOESN'T AUTO CLOSE POPOVER AFTER APPEARING IN THE PAGE 
+    // BY DEFAULT, BOOTSTRAP DOESN'T AUTO CLOSE POPOVER AFTER APPEARING IN THE PAGE
     $(document).on('click', function (e) {
         $('[data-bs-toggle="popover"],[data-original-title]').each(function () {
             //the 'is' for buttons that trigger popups

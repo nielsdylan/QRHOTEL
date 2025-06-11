@@ -11,7 +11,7 @@
 
 <!-- INTERNAL SELECT2 JS -->
 <script src="{{ asset('template/plugins/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('template/js/select2.js') }}"></script>
+{{-- <script src="{{ asset('template/js/select2.js') }}"></script> --}}
 
 <!-- SWEET-ALERT JS -->
 <script src="{{ asset('template/plugins/sweet-alert/sweetalert.min.js') }}"></script>
