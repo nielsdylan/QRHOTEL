@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modulo\PuntoVenta;
 
 use App\Http\Controllers\Controller;
+use App\Models\Habitacion;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,11 @@ class VenderProductoController extends Controller
     }
     public function venta()
     {
+        $habitacion = Habitacion::where('hotel_id', Auth::user()->hotel_sesion)->get();
+        // foreach ($habitacion as $key => $value) {
+        //     $value->estadoHabitacion = $value->estadoHabitacion($value->id);
+        // }
+        // return $habitacion;
         return view('modulos.punto-venta.vender-producto.venta', get_defined_vars());
     }
 }

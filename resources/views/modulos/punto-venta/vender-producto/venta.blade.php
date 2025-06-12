@@ -55,55 +55,16 @@
                         </div>
                         <form action="">
                             <div class="card-body">
-                                {{-- <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="cliente">Cliente</label>
-                                            <select class="form-control select2" id="cliente" name="cliente">
-                                                <option value="">Seleccione un cliente</option>
-                                            </select>
-                                    </div>
-                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                <button class="btn btn-light btn-sm" type="button" id="button-addon2"><i class="fa fa-search"></i> Buscar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="form-label"> Select2 with search box</label>
-                                            <select class="form-control select2-show-search form-select" data-placeholder="Choose one" id="select-id">
-                                                <option label="Choose one"></option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="MT">Montana</option>
-                                                <option value="NE">Nebraska</option>
-                                                <option value="NM">New Mexico</option>
-                                                <option value="ND">North Dakota</option>
-                                                <option value="UT">Utah</option>
-                                                <option value="WY">Wyoming</option>
-                                                <option value="AL">Alabama</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IA">Iowa</option>
-                                                <option value="KS">Kansas</option>
-                                                <option value="KY">Kentucky</option>
-                                                <option value="LA">Louisiana</option>
-                                                <option value="MN">Minnesota</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="MO">Missouri</option>
-                                                <option value="OK">Oklahoma</option>
-                                                <option value="SD">South Dakota</option>
-                                                <option value="TX">Texas</option>
-                                                <option value="TN">Tennessee</option>
-                                                <option value="WI">Wisconsin</option>
+                                            <label class="form-label"> Seleccione la habitación:</label>
+                                            <select class="form-control select2-show-search form-select form-select-sm" data-placeholder="Seleccione..." >
+                                                <option label="Seleccione..."></option>
+                                                @foreach ($habitacion as $value)
+                                                <option value="{{$value->id}}">{{$value->nombre . ' - ' . $value->estadoHabitacion($value->id)->nombre}}</option>
+                                                @endforeach
+
                                             </select>
                                         </div>
 
@@ -126,18 +87,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{-- <tr>
-                                                        <td>
-                                                            <select class="form-control select2" id="producto" name="producto">
-                                                                <option value="">Seleccione un producto</option>
-                                                            </select>
-                                                        </td>
-                                                        <td><input type="text" class="form-control" id="precio" name="precio" readonly></td>
-                                                        <td><input type="number" class="form-control" id="cantidad" name="cantidad"></td>
-                                                        <td><input type="text" class="form-control" id="sub_total" name="sub_total" readonly></td>
-                                                        <td><input type="text" class="form-control" id="pagado" name="pagado"></td>
-                                                        <td><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button></td>
-                                                    </tr> --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -268,17 +217,6 @@
 <script src="{{ asset('modulo/js/punto-venta/vender-producto/venta-view.js') }}"></script>
 
 <script>
-    // $('#selectmultiple').select2({
-    //     minimumResultsForSearch: '',
-    //     width: '100%'
-    // });
-
-    // $(document).ready(function () {
-    //     $('.select2-show-search').select2({
-    //         minimumResultsForSearch: '',
-    //         width: '100%'
-    //     });
-    // });
     const view = new VentaView(new VentaModel(token));
     // view.listar();
     view.eventosVenta();
