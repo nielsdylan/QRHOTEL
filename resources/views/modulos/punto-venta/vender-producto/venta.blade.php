@@ -62,7 +62,9 @@
                                             <select class="form-control select2-show-search form-select form-select-sm" data-placeholder="Seleccione..." >
                                                 <option label="Seleccione..."></option>
                                                 @foreach ($habitacion as $value)
-                                                <option value="{{$value->id}}">{{$value->nombre . ' - ' . $value->estadoHabitacion($value->id)->nombre}}</option>
+                                                    @if (in_array($value->estadoHabitacion($value->id)->id, [2,3]))
+                                                    <option value="{{$value->id}}">{{$value->nombre . ' - ' . $value->estadoHabitacion($value->id)->nombre}}</option>
+                                                    @endif
                                                 @endforeach
 
                                             </select>
